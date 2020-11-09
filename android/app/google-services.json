@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "567236900306",
+    "firebase_url": "https://fpcapp-up.firebaseio.com",
+    "project_id": "fpcapp-up",
+    "storage_bucket": "fpcapp-up.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567236900306:android:db03b55a50a7b4b279040b",
+        "android_client_info": {
+          "package_name": "com.fpcapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567236900306-538nv86f3kddatdlf3oard5ah57074fj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fpcapp",
+            "certificate_hash": "0b68846af82eaeee496665ab07073da03cfd185b"
+          }
+        },
+        {
+          "client_id": "567236900306-pk1tsmc970rdrrnddd1g30g1duhb83uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiQPly07XpM6e925H7Erj52NAc9rGHkyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567236900306-pk1tsmc970rdrrnddd1g30g1duhb83uc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
