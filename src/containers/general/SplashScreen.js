@@ -6,11 +6,11 @@ export const SplashScreen = () => {
     <View style={styles.view}>
       <Image
         style={styles.logo}
-        source={require('../../assets/images/Logo.png')}
+        source={require('../../../assets/images/Logo.png')}
       />
       <Image
         style={styles.slogan}
-        source={require('../../assets/images/Slogan.png')}
+        source={require('../../../assets/images/Slogan.png')}
       />
     </View>
   );

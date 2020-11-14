@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "567236900306-rlpek92q8cuinne18qau27749kkbs82s.apps.googleusercontent.com",
+          "client_id": "567236900306-538nv86f3kddatdlf3oard5ah57074fj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.fpcapp",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "0b68846af82eaeee496665ab07073da03cfd185b"
           }
         },
         {

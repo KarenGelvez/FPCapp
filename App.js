@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {StatusBar, Text} from 'react-native';
-import {SplashScreen} from './src/containers/SplashScreen';
+import {StatusBar} from 'react-native';
+import {Provider as StoreProvider} from 'react-redux';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {store} from './src/Store';
+import {SplashScreen} from './src/containers/general/SplashScreen';
+import {AuthStack} from './src/containers/navigation/StackNavigator';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -10,17 +15,22 @@ const App = () => {
       setLoading(false);
     }, 1000);
   }, []);
+
   return (
-    <>
+    ///<StoreProvider store={store}>
+    <PaperProvider>
       {loading ? (
         <>
           <StatusBar barStyle="light-content" />
           <SplashScreen />
         </>
       ) : (
-        <Text>¡Formulación de Productos Cárnicos!</Text>
+        <NavigationContainer>
+          <AuthStack />
+        </NavigationContainer>
       )}
-    </>
+    </PaperProvider>
+    //</StoreProvider>
   );
 };
 
