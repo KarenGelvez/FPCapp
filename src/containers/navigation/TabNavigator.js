@@ -11,14 +11,20 @@ const Tab = createBottomTabNavigator();
 
 const TeacherTab = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#ad3333',
+        inactiveTintColor: '#003366',
+      }}
+      initialRouteName="Estudiantes">
       <Tab.Screen
         name="Ingredientes"
         component={IngredientsScreen}
         options={{
-          tabBarIcon: () => {
-            //return <Icon name="th" size={25} color="#000" />;
-            return <Icon name="apps-outline" size={25} color="#000" />;
+          tabBarIcon: ({focused}) => {
+            let colorIcon;
+            focused ? (colorIcon = '#ad3333') : (colorIcon = '#003366');
+            return <Icon name="apps-outline" size={25} color={colorIcon} />;
           },
         }}
       />
@@ -26,19 +32,23 @@ const TeacherTab = () => {
         name="Productos"
         component={ProductsScreen}
         options={{
-          tabBarIcon: () => {
-            //return <Icon name="th-list" size={25} color="#000" />;
-            return <Icon name="list" size={28} color="#000" />;
+          tabBarIcon: ({focused}) => {
+            let colorIcon;
+            focused ? (colorIcon = '#ad3333') : (colorIcon = '#003366');
+            return <Icon name="list" size={28} color={colorIcon} />;
           },
         }}
       />
       <Tab.Screen
-        name="Formulacion"
+        name="Formulación"
         component={FPCScreen}
         options={{
-          tabBarIcon: () => {
-            //return <Icon name="list-alt" size={25} color="#000" />;
-            return <Icon name="document-text-outline" size={25} color="#000" />;
+          tabBarIcon: ({focused}) => {
+            let colorIcon;
+            focused ? (colorIcon = '#ad3333') : (colorIcon = '#003366');
+            return (
+              <Icon name="document-text-outline" size={25} color={colorIcon} />
+            );
           },
         }}
       />
@@ -46,9 +56,10 @@ const TeacherTab = () => {
         name="Estudiantes"
         component={StudentsScreen}
         options={{
-          tabBarIcon: () => {
-            //return <Icon name="users" size={25} color="#000" />;
-            return <Icon name="people-outline" size={29} color="#000" />;
+          tabBarIcon: ({focused}) => {
+            let colorIcon;
+            focused ? (colorIcon = '#ad3333') : (colorIcon = '#003366');
+            return <Icon name="people-outline" size={29} color={colorIcon} />;
           },
         }}
       />
@@ -56,9 +67,12 @@ const TeacherTab = () => {
         name="Perfil"
         component={ProfileScreen}
         options={{
-          tabBarIcon: () => {
-            //return <Icon name="user-circle-o" size={25} color="#000" />;
-            return <Icon name="person-circle-outline" size={27} color="#000" />;
+          tabBarIcon: ({focused}) => {
+            let colorIcon;
+            focused ? (colorIcon = '#ad3333') : (colorIcon = '#003366');
+            return (
+              <Icon name="person-circle-outline" size={27} color={colorIcon} />
+            );
           },
         }}
       />
@@ -68,14 +82,21 @@ const TeacherTab = () => {
 
 const StudentTab = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#ad3333',
+        inactiveTintColor: '#003366',
+      }}>
       <Tab.Screen
-        name="Formulacion"
+        name="Formulación"
         component={FPCScreen}
         options={{
-          tabBarIcon: () => {
-            //return <Icon name="list-alt" size={25} color="#000" />;
-            return <Icon name="document-text-outline" size={25} color="#000" />;
+          tabBarIcon: ({focused}) => {
+            let colorIcon;
+            focused ? (colorIcon = '#ad3333') : (colorIcon = '#003366');
+            return (
+              <Icon name="document-text-outline" size={25} color={colorIcon} />
+            );
           },
         }}
       />
@@ -83,9 +104,12 @@ const StudentTab = () => {
         name="Perfil"
         component={ProfileScreen}
         options={{
-          tabBarIcon: () => {
-            //return <Icon name="user-circle-o" size={25} color="#000" />;
-            return <Icon name="person-circle-outline" size={27} color="#000" />;
+          tabBarIcon: ({focused}) => {
+            let colorIcon;
+            focused ? (colorIcon = '#ad3333') : (colorIcon = '#003366');
+            return (
+              <Icon name="person-circle-outline" size={27} color={colorIcon} />
+            );
           },
         }}
       />

@@ -17,20 +17,20 @@ const App = () => {
   }, []);
 
   return (
-    ///<StoreProvider store={store}>
-    <PaperProvider>
-      {loading ? (
-        <>
-          <StatusBar barStyle="light-content" />
-          <SplashScreen />
-        </>
-      ) : (
+    <StoreProvider store={store}>
+      <PaperProvider>
         <NavigationContainer>
-          <AuthStack />
+          {loading ? (
+            <>
+              <StatusBar barStyle="light-content" />
+              <SplashScreen />
+            </>
+          ) : (
+            <AuthStack />
+          )}
         </NavigationContainer>
-      )}
-    </PaperProvider>
-    //</StoreProvider>
+      </PaperProvider>
+    </StoreProvider>
   );
 };
 

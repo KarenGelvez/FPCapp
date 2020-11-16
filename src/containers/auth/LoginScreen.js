@@ -1,7 +1,4 @@
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-community/google-signin';
+import {GoogleSigninButton} from '@react-native-community/google-signin';
 import React from 'react';
 import {
   Text,
@@ -14,9 +11,15 @@ import {
   Alert,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {Auth, Firestore} from '../../firebase/Firebase';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {Separator} from '../../components/Separator';
+import {SwitchUser} from '../../components/SwitchUser';
+import {TextInputPaper} from '../../components/TextInputPaper';
+//import {Auth, Firestore} from '../../firebase/Firebase';
 export const LoginScreen = ({navigation}) => {
+  const handleChange = (value) => {
+    console.log(value);
+  };
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
@@ -24,51 +27,33 @@ export const LoginScreen = ({navigation}) => {
           source={require('../../../assets/images/Logo.png')}
           style={styles.image}
         />
+        <SwitchUser />
         <Text style={styles.text}>Inicio de Sesión</Text>
-
         <GoogleSigninButton
-          onPress={() =>
-            GoogleSignIn()
+          onPress={
+            () => Alert.alert('Iniciando sesión...')
+            /* GoogleSignIn()
               .then((result) => console.log('INICIO DE SESION' + result))
-              .catch((error) => console.log('ERROR => ' + error))
+              .catch((error) => console.log('ERROR => ' + error)) */
           }
           style={{width: 220, height: 50, alignSelf: 'center', margin: 10}}
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Light}
         />
-
-        <View style={styles.or}>
-          <View style={styles.separator} />
-          <Text>o</Text>
-          <View style={styles.separator} />
-        </View>
-        <TextInput
-          style={styles.input}
-          label="Correo Electrónico"
-          mode="outlined"
-          selectionColor="#003366"
-          theme={{
-            colors: {
-              primary: '#003366',
-            },
-          }}
+        <Separator />
+        <TextInputPaper label={'Correo Electrónico'} onChange={handleChange} />
+        <TextInputPaper
+          label={'Contraseña'}
+          onChange={handleChange}
+          secure={true}
         />
-        <TextInput
-          style={styles.input}
-          label="Contraseña"
-          secureTextEntry={true}
-          mode="outlined"
-          theme={{
-            colors: {
-              primary: '#003366',
-            },
-          }}
-        />
-
         <TouchableOpacity
           style={styles.button}
           onPress={() => Alert.alert('Iniciando sesión...')}>
           <Text style={{fontSize: 15, color: '#fff'}}>Iniciar sesión</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.register}>¿Aún no tienes cuenta? Regístrate</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -89,13 +74,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 150,
     height: 150,
-    margin: 50,
-    marginTop: '25%',
+    margin: 10,
+    marginTop: '20%',
   },
   text: {
     textAlign: 'center',
     fontSize: 20,
     marginBottom: 10,
+    color: '#000',
   },
   button: {
     flexDirection: 'row',
@@ -108,24 +94,12 @@ const styles = StyleSheet.create({
     width: '75%',
     alignSelf: 'center',
     marginTop: 10,
+    alignItems: 'center',
   },
-  or: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#000000',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    width: '30%',
-    margin: 10,
-  },
-  input: {
-    alignSelf: 'center',
-    width: '80%',
-    backgroundColor: '#fff',
-    margin: 5,
-    padding: 8,
-    color: 'red',
+  register: {
+    textAlign: 'center',
+    fontSize: 15,
+    marginTop: 5,
+    textDecorationLine: 'underline',
   },
 });
