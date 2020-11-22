@@ -1,5 +1,4 @@
-import {GoogleSigninButton} from '@react-native-community/google-signin';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -7,26 +6,36 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {userData} from '../../actions/auth.action';
+import {
+  loginEmailTeacher,
+  loginEmailStudent,
+  logoutGoogle,
+} from '../../actions/auth.action';
+import {getTeachersFirestore} from '../../actions/teacher.action';
+import {ButtomGoogleSignIn} from '../../components/ButtomGoogleSignIn';
 import {Separator} from '../../components/Separator';
 import {SwitchUser} from '../../components/SwitchUser';
 import {TextInputPaper} from '../../components/TextInputPaper';
-import {setUserData} from '../../helpers/AsyncStorage';
 export const LoginScreen = ({navigation}) => {
+  useEffect(() => {
+    dispatch(getTeachersFirestore());
+  }, []);
   const {userTeacher} = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const [data, setdata] = useState({
     email: null,
     password: null,
-    teacher: userTeacher,
   });
-  const submitLogin = () => {
-    dispatch(userData(data));
-    setUserData(data);
+  const submitLoginEmail = () => {
+    if (userTeacher) {
+      dispatch(loginEmailTeacher(data));
+    } else {
+      dispatch(loginEmailStudent(data));
+    }
   };
+  //dispatch(logoutGoogle());
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
@@ -36,17 +45,7 @@ export const LoginScreen = ({navigation}) => {
         />
         <SwitchUser />
         <Text style={styles.text}>Inicio de Sesión</Text>
-        <GoogleSigninButton
-          onPress={
-            () => Alert.alert('Iniciando sesión con Google...')
-            /* GoogleSignIn()
-              .then((result) => console.log('INICIO DE SESION' + result))
-              .catch((error) => console.log('ERROR => ' + error)) */
-          }
-          style={{width: 220, height: 50, alignSelf: 'center', margin: 10}}
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Light}
-        />
+        <ButtomGoogleSignIn />
         <Separator />
         <TextInputPaper
           label={'Correo Electrónico'}
@@ -57,7 +56,7 @@ export const LoginScreen = ({navigation}) => {
           onChange={(value) => setdata({...data, password: value})}
           secure={true}
         />
-        <TouchableOpacity style={styles.button} onPress={submitLogin}>
+        <TouchableOpacity style={styles.button} onPress={submitLoginEmail}>
           <Text style={{fontSize: 15, color: '#fff'}}>Iniciar sesión</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>

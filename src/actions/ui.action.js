@@ -20,3 +20,10 @@ export const changeLoadingSS = (state) => {
     payload: state,
   };
 };
+
+export const showModalRegister = (state) => {
+  return {
+    type: types.uiShowModalRegister,
+    payload: state,
+  };
+};

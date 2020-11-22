@@ -7,3 +7,23 @@ export const covertArrTeacher = (obj) => {
     });
   }
 };
+
+export const covertDataUser = (obj, collection) => {
+  if (collection === 'teachers') {
+    return {
+      uid: obj['uid'],
+      name: obj['name'],
+      code: obj['code'],
+      teacher: true,
+    };
+  } else {
+    return {
+      uid: obj['uid'],
+      name: obj['name'],
+      code: obj['code'],
+      verified: obj['verified'],
+      uidTeacher: obj['teacher'],
+      teacher: false,
+    };
+  }
+};

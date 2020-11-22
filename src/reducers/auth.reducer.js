@@ -1,9 +1,9 @@
 import {types} from '../Types';
 
 const initialState = {
-  userData: null,
+  userData: {},
   teacher: null,
-  userToRegister: null,
+  userToRegister: {},
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -18,8 +18,11 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         userData: null,
       };
-    case types.logout:
-      return {};
+    case types.userToRegister:
+      return {
+        ...state,
+        userToRegister: action.payload,
+      };
 
     default:
       return state;

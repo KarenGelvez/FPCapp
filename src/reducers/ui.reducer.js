@@ -4,6 +4,7 @@ const initialState = {
   userTeacher: false,
   methodRegisterGoogle: false,
   loadingSS: true,
+  showModalRegister: false,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -22,6 +23,11 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         loadingSS: action.payload,
+      };
+    case types.uiShowModalRegister:
+      return {
+        ...state,
+        showModalRegister: action.payload,
       };
 
     default:

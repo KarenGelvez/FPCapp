@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Picker} from '@react-native-picker/picker';
 import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 export const RegisterSectionS = ({onChange, value = 0}) => {
-  const dispatch = useDispatch();
-
   const {teachersList} = useSelector((state) => state.teacher);
   return (
     <>
@@ -23,7 +21,7 @@ export const RegisterSectionS = ({onChange, value = 0}) => {
           }
           testID={'SelectTeacher'}
           mode={'dropdown'}>
-          <Picker.Item label={'Seleccione: '} value={0} />
+          <Picker.Item label={'Seleccione: '} value={0} key={0} />
           {teachersList.map((teacher) => (
             <Picker.Item
               label={teacher.name}
