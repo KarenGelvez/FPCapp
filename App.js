@@ -6,6 +6,7 @@ import {store} from './src/Store';
 import {SplashScreen} from './src/containers/general/SplashScreen';
 import {AuthStack} from './src/containers/navigation/StackNavigator';
 import {NavigationContainer} from '@react-navigation/native';
+import {Main} from './src/containers/navigation/Main';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -20,14 +21,7 @@ const App = () => {
     <StoreProvider store={store}>
       <PaperProvider>
         <NavigationContainer>
-          {loading ? (
-            <>
-              <StatusBar barStyle="light-content" />
-              <SplashScreen />
-            </>
-          ) : (
-            <AuthStack />
-          )}
+          {loading ? <SplashScreen /> : <Main />}
         </NavigationContainer>
       </PaperProvider>
     </StoreProvider>

@@ -1,8 +1,12 @@
 import React from 'react';
 import {StyleSheet, Switch, View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeUser} from '../actions/ui.action';
 
 export const SwitchUser = () => {
+  const dispatch = useDispatch();
+  const {userTeacher} = useSelector((state) => state.ui);
   return (
     <View style={styles.wrapper}>
       <View style={styles.wrapperIcon}>
@@ -12,8 +16,8 @@ export const SwitchUser = () => {
       <Switch
         trackColor={{false: '#dadada', true: '#dadada'}}
         thumbColor={'#003366'}
-        onValueChange={(state) => console.log(state)}
-        value={false}
+        onValueChange={(state) => dispatch(changeUser(state))}
+        value={userTeacher}
       />
       <View style={styles.wrapperIcon}>
         <Icon name="person-outline" size={29} color="#000" />

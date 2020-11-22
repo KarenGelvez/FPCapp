@@ -2,7 +2,13 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {TextInput} from 'react-native-paper';
 
-export const TextInputPaper = ({label, onChange, secure = false}) => {
+export const TextInputPaper = ({
+  label,
+  onChange,
+  secure = false,
+  type = 'none',
+  keyboard = 'default',
+}) => {
   return (
     <TextInput
       style={styles.input}
@@ -15,6 +21,8 @@ export const TextInputPaper = ({label, onChange, secure = false}) => {
         },
       }}
       onChangeText={onChange}
+      textContentType={type}
+      keyboardType={keyboard}
     />
   );
 };

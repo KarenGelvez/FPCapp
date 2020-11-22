@@ -196,6 +196,8 @@ dependencies {
 
     implementation 'androidx.multidex:multidex:2.0.1' // Enabling Multidex
 
+    //implementation project(path: ':@react-native-picker_picker') // Picker
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }

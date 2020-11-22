@@ -1,24 +1,31 @@
 import {GoogleSigninButton} from '@react-native-community/google-signin';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   StyleSheet,
   SafeAreaView,
   ScrollView,
   Image,
-  View,
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import {TextInput} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {useDispatch, useSelector} from 'react-redux';
+import {userData} from '../../actions/auth.action';
 import {Separator} from '../../components/Separator';
 import {SwitchUser} from '../../components/SwitchUser';
 import {TextInputPaper} from '../../components/TextInputPaper';
-//import {Auth, Firestore} from '../../firebase/Firebase';
+import {setUserData} from '../../helpers/AsyncStorage';
 export const LoginScreen = ({navigation}) => {
-  const handleChange = (value) => {
-    console.log(value);
+  const {userTeacher} = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
+  const [data, setdata] = useState({
+    email: null,
+    password: null,
+    teacher: userTeacher,
+  });
+  const submitLogin = () => {
+    dispatch(userData(data));
+    setUserData(data);
   };
   return (
     <SafeAreaView>
@@ -31,7 +38,7 @@ export const LoginScreen = ({navigation}) => {
         <Text style={styles.text}>Inicio de Sesión</Text>
         <GoogleSigninButton
           onPress={
-            () => Alert.alert('Iniciando sesión...')
+            () => Alert.alert('Iniciando sesión con Google...')
             /* GoogleSignIn()
               .then((result) => console.log('INICIO DE SESION' + result))
               .catch((error) => console.log('ERROR => ' + error)) */
@@ -41,15 +48,16 @@ export const LoginScreen = ({navigation}) => {
           color={GoogleSigninButton.Color.Light}
         />
         <Separator />
-        <TextInputPaper label={'Correo Electrónico'} onChange={handleChange} />
+        <TextInputPaper
+          label={'Correo Electrónico'}
+          onChange={(value) => setdata({...data, email: value})}
+        />
         <TextInputPaper
           label={'Contraseña'}
-          onChange={handleChange}
+          onChange={(value) => setdata({...data, password: value})}
           secure={true}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => Alert.alert('Iniciando sesión...')}>
+        <TouchableOpacity style={styles.button} onPress={submitLogin}>
           <Text style={{fontSize: 15, color: '#fff'}}>Iniciar sesión</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>

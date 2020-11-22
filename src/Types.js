@@ -8,6 +8,8 @@ export const types = {
   registerStudentGoogle: '[Auth] RegisterStudentGoogle',
   registerStudentEmail: '[Auth] RegisterStudentEmail',
   logout: '[Auth] Logout',
+  userActive: '[AUTH] UserActive',
+  removeUser: '[AUTH] RemoveUSer',
 
   uiRegisterTeacher: '[UI] RegisterTeacher',
   uiRegisterStudent: '[UI] RegisterStudent',
@@ -15,4 +17,8 @@ export const types = {
   uiLoginStudent: '[UI] LoginStudent',
   uiStartLoading: '[UI] StartLoading',
   uiFinishLoading: '[UI] FinishLoading',
+  uiRegisterGoogle: '[UI] RegisterWithGoogle',
+  uiLoadingSplashScreen: '[UI] LoadingSplashScreen',
+
+  getTeachers: '[T] GetTeachers',
 };
