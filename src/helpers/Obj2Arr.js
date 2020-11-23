@@ -8,6 +8,33 @@ export const covertArrTeacher = (obj) => {
   }
 };
 
+export const covertArrStudent = (obj) => {
+  let student = [];
+  let studentVerified = [];
+  if (obj === null) {
+    return {};
+  } else {
+    obj.map(({_data}) => {
+      if (_data['verified']) {
+        studentVerified.push({
+          uid: _data['uid'],
+          name: _data['name'],
+          photo: _data['photo'],
+          verified: _data['verified'],
+        });
+      } else {
+        student.push({
+          uid: _data['uid'],
+          name: _data['name'],
+          photo: _data['photo'],
+          verified: _data['verified'],
+        });
+      }
+    });
+  }
+  return {student, studentVerified};
+};
+
 export const covertDataUser = (obj, collection, method) => {
   if (collection === 'teachers') {
     return {

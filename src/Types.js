@@ -8,8 +8,11 @@ export const types = {
   uiLoginTeacher: '[UI] LoginTeacher',
   uiLoadingSplashScreen: '[UI] LoadingSplashScreen',
   uiShowModalRegister: '[UI] ShowModalRegister',
+  iuLoading: '[UI] Loading',
 
   getTeachers: '[U] GetTeachers',
+  getStudents: '[U] GetStudents',
+  getStudentsVerified: '[U] GetStudentsVerified',
   getKeyTeachers: '[U] GetKeyTeachers',
   updateUserData: '[U] UpdateUserData',
 };

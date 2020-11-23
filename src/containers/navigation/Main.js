@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {logoutEmail} from '../../actions/auth.action';
+import {logoutEmail, logoutGoogle} from '../../actions/auth.action';
 import {AuthStack} from './StackNavigator';
 import {StudentTab, TeacherTab} from './TabNavigator';
 

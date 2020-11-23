@@ -1,12 +1,8 @@
 import React from 'react';
 import {Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Loading} from '../../components/Loading';
 
 export const FPCScreen = () => {
-  return (
-    <>
-      <Text>Pantalla de Formulacion</Text>
-      <Icon name="list-alt" size={80} color="#900" />
-    </>
-  );
+  return <Loading />;
 };

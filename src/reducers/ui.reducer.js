@@ -28,7 +28,7 @@ export const uiReducer = (state = initialState, action) => {
     case types.uiLoading:
       return {
         ...state,
-        loading: action.payload,
+        loading: !state.loading,
       };
 
     default:

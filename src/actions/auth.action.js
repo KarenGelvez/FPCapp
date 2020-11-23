@@ -3,7 +3,7 @@ import {Auth, Firestore} from '../firebase/Firebase';
 import {types} from '../Types';
 import {removeUser as RU, setUserData as SU} from '../helpers/AsyncStorage';
 import {covertDataUser} from '../helpers/Obj2Arr';
-import {showModalRegister} from './ui.action';
+import {loading, showModalRegister} from './ui.action';
 
 export const userData = (data) => {
   return {
@@ -26,20 +26,21 @@ export const userToRegister = (data) => {
 };
 
 export const getUser = (uid, collection, method) => {
-  return (dispatch) => {
-    Firestore.collection(collection)
+  return async (dispatch) => {
+    await Firestore.collection(collection)
       .doc(uid)
       .get()
       .then(({_data}) => {
         const user = covertDataUser(_data, collection, method);
         dispatch(setUserAS(user));
+        dispatch(loading());
       });
   };
 };
 
 export const userAuthEmail = (data) => {
-  return (dispatch) => {
-    Auth()
+  return async (dispatch) => {
+    await Auth()
       .createUserWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
         console.log('Usuario creado e iniciado sesionn-');
@@ -62,10 +63,10 @@ export const userAuthEmail = (data) => {
 };
 
 export const userRegister = (data) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     if (data['userTeacher']) {
       //TeacherRegister
-      Firestore.collection('teachers')
+      await Firestore.collection('teachers')
         .doc(data['uid'])
         .set({
           uid: data['uid'],
@@ -79,7 +80,7 @@ export const userRegister = (data) => {
         });
     } else {
       //StudentRegister
-      Firestore.collection('students')
+      await Firestore.collection('students')
         .doc(data['uid'])
         .set({
           uid: data['uid'],
@@ -100,13 +101,13 @@ export const userRegister = (data) => {
 };
 //setUserData(data);
 export const loginGoogleTeacher = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const GoogleSignIn = async () => {
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
       return Auth().signInWithCredential(googleCredential);
     };
-    GoogleSignIn()
+    await GoogleSignIn()
       .then((res) => {
         if (res.additionalUserInfo.isNewUser) {
           const newUser = {
@@ -126,13 +127,13 @@ export const loginGoogleTeacher = () => {
 };
 
 export const loginGoogleStudent = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const GoogleSignIn = async () => {
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
       return Auth().signInWithCredential(googleCredential);
     };
-    GoogleSignIn()
+    await GoogleSignIn()
       .then((res) => {
         if (res.additionalUserInfo.isNewUser) {
           const newUser = {
@@ -153,8 +154,8 @@ export const loginGoogleStudent = () => {
 
 export const loginEmailTeacher = (data) => {
   console.log(Auth().currentUser.displayName);
-  return (dispatch) => {
-    Auth()
+  return async (dispatch) => {
+    await Auth()
       .signInWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
         dispatch(getUser(res.user.uid, 'teachers', 'Email'));
@@ -179,8 +180,8 @@ export const loginEmailTeacher = (data) => {
 };
 
 export const loginEmailStudent = (data) => {
-  return (dispatch) => {
-    Auth()
+  return async (dispatch) => {
+    await Auth()
       .signInWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
         dispatch(getUser(res.user.uid, 'students', 'Email'));
@@ -216,8 +217,8 @@ export const logoutGoogle = () => {
 };
 
 export const logoutEmail = () => {
-  return (dispatch) => {
-    Auth()
+  return async (dispatch) => {
+    await Auth()
       .signOut()
       .then(() => dispatch(removeUserAS()));
   };

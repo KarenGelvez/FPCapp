@@ -1,5 +1,11 @@
 import {types} from '../Types';
 
+export const loading = () => {
+  return {
+    type: types.uiLoading,
+  };
+};
+
 export const changeUser = (state) => {
   return {
     type: types.uiLoginTeacher,

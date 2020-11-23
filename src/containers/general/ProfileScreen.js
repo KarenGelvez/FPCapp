@@ -12,6 +12,7 @@ import {TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {logoutEmail, logoutGoogle} from '../../actions/auth.action';
+import {loading} from '../../actions/ui.action';
 import {updateUser} from '../../actions/user.action';
 
 export const ProfileScreen = () => {
@@ -29,6 +30,7 @@ export const ProfileScreen = () => {
       dispatch(
         updateUser(userData['uid'], collection, newData, userData['method']),
       );
+      dispatch(loading());
     }
   };
   const logout = () => {
