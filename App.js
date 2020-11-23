@@ -4,7 +4,6 @@ import {Provider as StoreProvider} from 'react-redux';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {store} from './src/Store';
 import {SplashScreen} from './src/containers/general/SplashScreen';
-import {AuthStack} from './src/containers/navigation/StackNavigator';
 import {NavigationContainer} from '@react-navigation/native';
 import {Main} from './src/containers/navigation/Main';
 

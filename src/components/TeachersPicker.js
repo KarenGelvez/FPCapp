@@ -3,8 +3,8 @@ import {Picker} from '@react-native-picker/picker';
 import {StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
-export const RegisterSectionS = ({onChange, value = 0}) => {
-  const {teachersList} = useSelector((state) => state.teacher);
+export const TeachersPicker = ({onChange, value = 0}) => {
+  const {teachersList} = useSelector((state) => state.user);
   return (
     <>
       <Text style={{width: '70%', alignSelf: 'center', margin: 10}}>

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
-import {keyTeachers} from '../actions/teacher.action';
+import {keyTeachers} from '../actions/user.action';
 import {changeUser} from '../actions/ui.action';
 import {TextInputPaper} from './TextInputPaper';
 
@@ -18,7 +18,7 @@ export const SwitchUser = () => {
   const dispatch = useDispatch();
   dispatch(keyTeachers());
   const {userTeacher} = useSelector((state) => state.ui);
-  const {key} = useSelector((state) => state.teacher);
+  const {key} = useSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState(false);
   const [newKey, setnewKey] = useState('');
   const handleCheck = () => {

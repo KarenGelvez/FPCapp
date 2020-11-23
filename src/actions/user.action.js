@@ -1,7 +1,7 @@
-import {useState} from 'react';
 import {Firestore, Auth} from '../firebase/Firebase';
 import {covertArrTeacher} from '../helpers/Obj2Arr';
 import {types} from '../Types';
+import {getUser} from './auth.action';
 
 export const getTeacher = (teachers) => {
   return {
@@ -35,5 +35,17 @@ export const keyTeachers = () => {
       .then(({docs}) => {
         docs.map(({_data}) => dispatch(getKeyTeachers(_data['idTeachers'])));
       });
+  };
+};
+
+export const updateUser = (uid, collection, newdata, method) => {
+  return (dispatch) => {
+    Firestore.collection(collection)
+      .doc(uid)
+      .update({
+        name: newdata['name'],
+        code: newdata['code'],
+      })
+      .then(() => dispatch(getUser(uid, collection, method)));
   };
 };

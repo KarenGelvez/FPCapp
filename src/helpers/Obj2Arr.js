@@ -8,13 +8,15 @@ export const covertArrTeacher = (obj) => {
   }
 };
 
-export const covertDataUser = (obj, collection) => {
+export const covertDataUser = (obj, collection, method) => {
   if (collection === 'teachers') {
     return {
       uid: obj['uid'],
       name: obj['name'],
       code: obj['code'],
       teacher: true,
+      photo: obj['photo'],
+      method: method,
     };
   } else {
     return {
@@ -24,6 +26,8 @@ export const covertDataUser = (obj, collection) => {
       verified: obj['verified'],
       uidTeacher: obj['teacher'],
       teacher: false,
+      photo: obj['photo'],
+      method: method,
     };
   }
 };

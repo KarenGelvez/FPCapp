@@ -2,10 +2,10 @@ import {types} from '../Types';
 
 const initialState = {
   teachersList: [],
-  key: null,
+  key: '',
 };
 
-export const teacherReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.getTeachers:
       return {...state, teachersList: action.payload};

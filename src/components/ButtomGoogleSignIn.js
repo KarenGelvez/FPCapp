@@ -9,7 +9,7 @@ import {
 import {showModalRegister} from '../actions/ui.action';
 import {useDispatch, useSelector} from 'react-redux';
 import {TextInputPaper} from './TextInputPaper';
-import {RegisterSectionS} from './RegisterSectionS';
+import {TeachersPicker} from './TeachersPicker';
 
 export const ButtomGoogleSignIn = () => {
   const {userTeacher, showModalRegister: show} = useSelector(
@@ -50,7 +50,7 @@ export const ButtomGoogleSignIn = () => {
               Por favor, complete lo siguiente para continuar con su registro
             </Text>
             {!userTeacher && (
-              <RegisterSectionS onChange={setData} value={data['uidTeacher']} />
+              <TeachersPicker onChange={setData} value={data['uidTeacher']} />
             )}
             <TextInputPaper
               label={'Código'}

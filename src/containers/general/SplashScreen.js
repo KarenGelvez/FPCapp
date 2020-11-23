@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {setUserAS} from '../../actions/auth.action';
+import {getUserData} from '../../helpers/AsyncStorage';
 
 export const SplashScreen = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getUser();
+  }, []);
+  const getUser = async () => {
+    const userData = await getUserData();
+    dispatch(setUserAS(userData));
+  };
   return (
     <View style={styles.view}>
       <Image

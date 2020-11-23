@@ -1,23 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {removeUser, userData as userActive} from '../../actions/auth.action';
-import {getUserData} from '../../helpers/AsyncStorage';
+import {logoutEmail} from '../../actions/auth.action';
 import {AuthStack} from './StackNavigator';
 import {StudentTab, TeacherTab} from './TabNavigator';
 
 export const Main = () => {
+  const {userData, method} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const {userData} = useSelector((state) => state.auth);
-  useEffect(() => {
-    getUser();
-  }, []);
-  const getUser = async () => {
-    const userData = await getUserData();
-    dispatch(userActive(userData));
-    console.log(userData);
+  const logout = () => {
+    if (method === 'Email') {
+      dispatch(logoutEmail());
+    } else {
+      dispatch(logoutGoogle());
+    }
   };
-  //dispatch(removeUserAS());
   return (
     <>
       {Object.keys(userData).length == 0 ? (
@@ -32,10 +29,14 @@ export const Main = () => {
                 <StudentTab />
               ) : (
                 <>
-                  {Alert.alert(
-                    'Acceso no autorizado',
-                    'El docente aún no ha verificado tu registro',
-                  )}
+                  {
+                    (Alert.alert(
+                      'Acceso no autorizado',
+                      'El docente aún no ha verificado tu registro',
+                    ),
+                    logout())
+                  }
+
                   <AuthStack />
                 </>
               )}

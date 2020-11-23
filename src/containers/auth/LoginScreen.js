@@ -8,12 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  loginEmailTeacher,
-  loginEmailStudent,
-  logoutGoogle,
-} from '../../actions/auth.action';
-import {getTeachersFirestore} from '../../actions/teacher.action';
+import {loginEmailTeacher, loginEmailStudent} from '../../actions/auth.action';
+import {getTeachersFirestore} from '../../actions/user.action';
 import {ButtomGoogleSignIn} from '../../components/ButtomGoogleSignIn';
 import {Separator} from '../../components/Separator';
 import {SwitchUser} from '../../components/SwitchUser';

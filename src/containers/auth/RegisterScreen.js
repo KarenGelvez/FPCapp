@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {userAuthEmail} from '../../actions/auth.action';
-import {RegisterSectionS} from '../../components/RegisterSectionS';
+import {TeachersPicker} from '../../components/TeachersPicker';
 import {SwitchUser} from '../../components/SwitchUser';
 import {TextInputPaper} from '../../components/TextInputPaper';
-import {getTeachersFirestore} from '../../actions/teacher.action';
+import {getTeachersFirestore} from '../../actions/user.action';
 
 export const RegisterScreen = ({navigation}) => {
   useEffect(() => {
@@ -43,7 +43,7 @@ export const RegisterScreen = ({navigation}) => {
 
         <Text style={styles.text}>Registro</Text>
         {!userTeacher && (
-          <RegisterSectionS onChange={setdata} value={data['uidTeacher']} />
+          <TeachersPicker onChange={setdata} value={data['uidTeacher']} />
         )}
 
         <TextInputPaper

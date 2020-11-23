@@ -15,6 +15,7 @@ const TeacherTab = () => {
       tabBarOptions={{
         activeTintColor: '#ad3333',
         inactiveTintColor: '#003366',
+        keyboardHidesTabBar: true,
       }}
       initialRouteName="Estudiantes">
       <Tab.Screen
@@ -86,6 +87,7 @@ const StudentTab = () => {
       tabBarOptions={{
         activeTintColor: '#ad3333',
         inactiveTintColor: '#003366',
+        keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
         name="Formulación"

@@ -5,6 +5,7 @@ const initialState = {
   methodRegisterGoogle: false,
   loadingSS: true,
   showModalRegister: false,
+  loading: false,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -13,11 +14,6 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         userTeacher: action.payload,
-      };
-    case types.uiRegisterGoogle:
-      return {
-        ...state,
-        methodRegisterGoogle: action.payload,
       };
     case types.uiLoadingSplashScreen:
       return {
@@ -28,6 +24,11 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         showModalRegister: action.payload,
+      };
+    case types.uiLoading:
+      return {
+        ...state,
+        loading: action.payload,
       };
 
     default:

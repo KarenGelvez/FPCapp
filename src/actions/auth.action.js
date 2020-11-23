@@ -1,7 +1,7 @@
 import {GoogleSignin} from '@react-native-community/google-signin';
 import {Auth, Firestore} from '../firebase/Firebase';
 import {types} from '../Types';
-import {removeUser as RU} from '../helpers/AsyncStorage';
+import {removeUser as RU, setUserData as SU} from '../helpers/AsyncStorage';
 import {covertDataUser} from '../helpers/Obj2Arr';
 import {showModalRegister} from './ui.action';
 
@@ -25,14 +25,14 @@ export const userToRegister = (data) => {
   };
 };
 
-export const getUser = (uid, collection) => {
+export const getUser = (uid, collection, method) => {
   return (dispatch) => {
     Firestore.collection(collection)
       .doc(uid)
       .get()
       .then(({_data}) => {
-        const user = covertDataUser(_data, collection);
-        dispatch(userData(user));
+        const user = covertDataUser(_data, collection, method);
+        dispatch(setUserAS(user));
       });
   };
 };
@@ -43,7 +43,7 @@ export const userAuthEmail = (data) => {
       .createUserWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
         console.log('Usuario creado e iniciado sesionn-');
-        const newData = {...data, uid: res['user']['uid']};
+        const newData = {...data, uid: res.user.uid, photo: null};
         dispatch(userRegister(newData));
       })
       .catch((error) => {
@@ -71,6 +71,7 @@ export const userRegister = (data) => {
           uid: data['uid'],
           name: data['name'],
           code: data['code'],
+          photo: data['photo'],
         })
         .then((res) => {
           console.log(res);
@@ -86,6 +87,7 @@ export const userRegister = (data) => {
           code: data['code'],
           teacher: data['uidTeacher'],
           verified: false,
+          photo: data['photo'],
         })
         .then((res) => {
           console.log(res);
@@ -93,7 +95,7 @@ export const userRegister = (data) => {
         })
         .catch((e) => console.log('ERROR REGISTER S: ' + e));
     }
-    dispatch(logout());
+    dispatch(logoutEmail());
   };
 };
 //setUserData(data);
@@ -111,11 +113,12 @@ export const loginGoogleTeacher = () => {
             uid: res.user.uid,
             name: res.user.displayName,
             userTeacher: true,
+            photo: res.user.photoURL,
           };
           dispatch(userToRegister(newUser));
           dispatch(showModalRegister(true));
         } else {
-          dispatch(getUser(res.user.uid, 'teachers'));
+          dispatch(getUser(res.user.uid, 'teachers', 'Google'));
         }
       })
       .catch((error) => console.log('ERROR => ' + error));
@@ -136,11 +139,12 @@ export const loginGoogleStudent = () => {
             uid: res.user.uid,
             name: res.user.displayName,
             userTeacher: false,
+            photo: res.user.photoURL,
           };
           dispatch(userToRegister(newUser));
           dispatch(showModalRegister(true));
         } else {
-          dispatch(getUser(res.user.uid, 'students'));
+          dispatch(getUser(res.user.uid, 'students', 'Google'));
         }
       })
       .catch((error) => console.log('ERROR => ' + error));
@@ -153,7 +157,7 @@ export const loginEmailTeacher = (data) => {
     Auth()
       .signInWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
-        dispatch(getUser(res.user.uid, 'teachers'));
+        dispatch(getUser(res.user.uid, 'teachers', 'Email'));
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {
@@ -179,7 +183,7 @@ export const loginEmailStudent = (data) => {
     Auth()
       .signInWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
-        dispatch(getUser(res.user.uid, 'students'));
+        dispatch(getUser(res.user.uid, 'students', 'Email'));
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {
@@ -204,21 +208,24 @@ export const logoutGoogle = () => {
   return async (dispatch) => {
     try {
       await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut().then(() =>
-        console.log('Sesion cerrada de google'),
-      );
-      //setUserInfo(null); // Remember to remove the user from your app's state as well
+      await GoogleSignin.signOut().then(() => dispatch(removeUserAS()));
     } catch (error) {
       console.error(error);
     }
   };
 };
 
-export const logout = () => {
-  return () => {
+export const logoutEmail = () => {
+  return (dispatch) => {
     Auth()
       .signOut()
-      .then(() => console.log('User signed out!'));
+      .then(() => dispatch(removeUserAS()));
+  };
+};
+
+export const setUserAS = (data) => {
+  return async (dispatch) => {
+    await SU(data).then(() => dispatch(userData(data)));
   };
 };
 

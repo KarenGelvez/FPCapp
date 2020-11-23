@@ -4,6 +4,7 @@ const initialState = {
   userData: {},
   teacher: null,
   userToRegister: {},
+  method: null,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -16,7 +17,7 @@ export const authReducer = (state = initialState, action) => {
     case types.removeUser:
       return {
         ...state,
-        userData: null,
+        userData: {},
       };
     case types.userToRegister:
       return {
