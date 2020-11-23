@@ -30,7 +30,7 @@ export const ItemStudent = ({name, uid, photo, v, uidT}) => {
           style={styles.button}
           onPress={() => {
             dispatch(verifiedUser(uid, uidT));
-            dispatch(loading());
+            dispatch(loading(true));
           }}>
           <Text style={{fontSize: 15, color: '#fff'}}>Aceptar</Text>
         </TouchableOpacity>
@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   button: {
-    marginStart: '40%',
+    position: 'absolute',
+    end: 0,
     flexDirection: 'row',
     backgroundColor: '#003366',
     padding: 10,
     borderRadius: 50,
-    margin: 5,
     width: 100,
     justifyContent: 'center',
   },

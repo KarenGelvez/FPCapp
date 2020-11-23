@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 
 export const TeachersPicker = ({onChange, value = 0}) => {
   const {teachersList} = useSelector((state) => state.user);
+
   return (
     <>
       <Text style={{width: '70%', alignSelf: 'center', margin: 10}}>

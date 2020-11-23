@@ -39,6 +39,7 @@ export const getTeachersFirestore = () => {
       .then(({docs}) => {
         const teachersArr = covertArrTeacher(docs);
         dispatch(getTeacher(teachersArr));
+        dispatch(loading(false));
       });
   };
 };
@@ -52,15 +53,14 @@ export const getStudentsFirestore = (uid) => {
         const {student, studentVerified} = covertArrStudent(docs);
         dispatch(getStudents(student));
         dispatch(getStudentsVerified(studentVerified));
-        dispatch(loading());
+        dispatch(loading(false));
       });
   };
 };
 
 export const keyTeachers = () => {
   return async (dispatch) => {
-    await irestore
-      .collection('id')
+    await Firestore.collection('id')
       .get()
       .then(({docs}) => {
         docs.map(({_data}) => dispatch(getKeyTeachers(_data['idTeachers'])));

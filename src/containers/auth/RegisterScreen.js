@@ -13,7 +13,9 @@ import {userAuthEmail} from '../../actions/auth.action';
 import {TeachersPicker} from '../../components/TeachersPicker';
 import {SwitchUser} from '../../components/SwitchUser';
 import {TextInputPaper} from '../../components/TextInputPaper';
+import {Loading} from '../../components/Loading';
 import {getTeachersFirestore} from '../../actions/user.action';
+import {loading} from '../../actions/ui.action';
 
 export const RegisterScreen = ({navigation}) => {
   useEffect(() => {
@@ -29,11 +31,13 @@ export const RegisterScreen = ({navigation}) => {
   });
   const {userTeacher} = useSelector((state) => state.ui);
   const handleSubmit = () => {
+    dispatch(loading(true));
     dispatch(userAuthEmail({...data, userTeacher}));
   };
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
+        <Loading />
         <Image
           source={require('../../../assets/images/Logo.png')}
           style={styles.image}

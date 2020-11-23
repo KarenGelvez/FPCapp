@@ -1,8 +1,9 @@
 import {types} from '../Types';
 
-export const loading = () => {
+export const loading = (state) => {
   return {
     type: types.uiLoading,
+    payload: state,
   };
 };
 

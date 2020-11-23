@@ -17,7 +17,7 @@ export const StudentsScreen = () => {
   const dispatch = useDispatch();
   const {userData} = useSelector((state) => state.auth);
   useEffect(() => {
-    dispatch(loading());
+    dispatch(loading(true));
     dispatch(getStudentsFirestore(userData['uid']));
   }, []);
   const {studentsList, studentsVerifiedList} = useSelector(
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   viewHead: {
-    backgroundColor: '#ad3333',
+    backgroundColor: '#003366',
     padding: 12,
     elevation: 20,
   },

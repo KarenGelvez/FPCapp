@@ -14,6 +14,9 @@ import {ButtomGoogleSignIn} from '../../components/ButtomGoogleSignIn';
 import {Separator} from '../../components/Separator';
 import {SwitchUser} from '../../components/SwitchUser';
 import {TextInputPaper} from '../../components/TextInputPaper';
+import {Loading} from '../../components/Loading';
+import {loading} from '../../actions/ui.action';
+
 export const LoginScreen = ({navigation}) => {
   useEffect(() => {
     dispatch(getTeachersFirestore());
@@ -25,16 +28,17 @@ export const LoginScreen = ({navigation}) => {
     password: null,
   });
   const submitLoginEmail = () => {
+    dispatch(loading(true));
     if (userTeacher) {
       dispatch(loginEmailTeacher(data));
     } else {
       dispatch(loginEmailStudent(data));
     }
   };
-  //dispatch(logoutGoogle());
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
+        <Loading />
         <Image
           source={require('../../../assets/images/Logo.png')}
           style={styles.image}

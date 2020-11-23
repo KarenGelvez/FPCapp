@@ -33,7 +33,7 @@ export const getUser = (uid, collection, method) => {
       .then(({_data}) => {
         const user = covertDataUser(_data, collection, method);
         dispatch(setUserAS(user));
-        dispatch(loading());
+        dispatch(loading(false));
       });
   };
 };
@@ -48,6 +48,7 @@ export const userAuthEmail = (data) => {
         dispatch(userRegister(newData));
       })
       .catch((error) => {
+        dispatch(loading(false));
         if (error.code === 'auth/email-already-in-use') {
           console.log('El Email ya esta en esu!');
         }
@@ -96,12 +97,14 @@ export const userRegister = (data) => {
         })
         .catch((e) => console.log('ERROR REGISTER S: ' + e));
     }
+    dispatch(loading(false));
     dispatch(logoutEmail());
   };
 };
 //setUserData(data);
 export const loginGoogleTeacher = () => {
   return async (dispatch) => {
+    dispatch(loading(true));
     const GoogleSignIn = async () => {
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
@@ -116,18 +119,23 @@ export const loginGoogleTeacher = () => {
             userTeacher: true,
             photo: res.user.photoURL,
           };
+          dispatch(loading(false));
           dispatch(userToRegister(newUser));
           dispatch(showModalRegister(true));
         } else {
           dispatch(getUser(res.user.uid, 'teachers', 'Google'));
         }
       })
-      .catch((error) => console.log('ERROR => ' + error));
+      .catch((error) => {
+        dispatch(loading(false));
+        console.log('ERROR => ' + error);
+      });
   };
 };
 
 export const loginGoogleStudent = () => {
   return async (dispatch) => {
+    dispatch(loading(true));
     const GoogleSignIn = async () => {
       const {idToken} = await GoogleSignin.signIn();
       const googleCredential = Auth.GoogleAuthProvider.credential(idToken);
@@ -142,25 +150,30 @@ export const loginGoogleStudent = () => {
             userTeacher: false,
             photo: res.user.photoURL,
           };
+          dispatch(loading(false));
           dispatch(userToRegister(newUser));
           dispatch(showModalRegister(true));
         } else {
           dispatch(getUser(res.user.uid, 'students', 'Google'));
         }
       })
-      .catch((error) => console.log('ERROR => ' + error));
+      .catch((error) => {
+        dispatch(loading(false));
+        console.log('ERROR => ' + error);
+      });
   };
 };
 
 export const loginEmailTeacher = (data) => {
-  console.log(Auth().currentUser.displayName);
   return async (dispatch) => {
+    dispatch(loading(true));
     await Auth()
       .signInWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
         dispatch(getUser(res.user.uid, 'teachers', 'Email'));
       })
       .catch((error) => {
+        dispatch(loading(false));
         if (error.code === 'auth/user-not-found') {
           console.log(
             'no hay ningún usuario correspondiente al correo electrónico',
@@ -181,12 +194,14 @@ export const loginEmailTeacher = (data) => {
 
 export const loginEmailStudent = (data) => {
   return async (dispatch) => {
+    dispatch(loading(true));
     await Auth()
       .signInWithEmailAndPassword(data['email'], data['password'])
       .then((res) => {
         dispatch(getUser(res.user.uid, 'students', 'Email'));
       })
       .catch((error) => {
+        dispatch(loading(false));
         if (error.code === 'auth/user-not-found') {
           console.log(
             'no hay ningún usuario correspondiente al correo electrónico',

@@ -30,7 +30,7 @@ export const ProfileScreen = () => {
       dispatch(
         updateUser(userData['uid'], collection, newData, userData['method']),
       );
-      dispatch(loading());
+      dispatch(loading(true));
     }
   };
   const logout = () => {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   wrapperData: {
-    width: '90%',
+    width: '100%',
     marginTop: '15%',
     paddingVertical: 20,
     borderTopWidth: 1,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     padding: 8,
     color: 'red',
     height: 25,
-    width: '70%',
+    width: '90%',
   },
   viewLabel: {
     flexDirection: 'row',
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
   textLabel: {
     fontSize: 16,
-    paddingRight: 10,
+    paddingRight: 1,
   },
   button: {
     flexDirection: 'row',
