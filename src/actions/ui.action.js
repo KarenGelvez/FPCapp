@@ -34,3 +34,31 @@ export const showModalRegister = (state) => {
     payload: state,
   };
 };
+
+export const showModalRP = (state) => {
+  return {
+    type: types.uiShowModalRegProd,
+    payload: state,
+  };
+};
+
+export const showModalRI = (state) => {
+  return {
+    type: types.uiShowModalRegIngr,
+    payload: state,
+  };
+};
+
+export const showModalUP = (state) => {
+  return {
+    type: types.uiShowModalUpdProd,
+    payload: state,
+  };
+};
+
+export const showModalUPI = (state) => {
+  return {
+    type: types.uiShowModalUpdIngr,
+    payload: state,
+  };
+};

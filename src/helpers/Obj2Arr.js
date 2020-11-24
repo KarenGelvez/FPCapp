@@ -58,3 +58,52 @@ export const covertDataUser = (obj, collection, method) => {
     };
   }
 };
+
+export const covertArr = (obj) => {
+  if (obj === null) {
+    return {};
+  } else {
+    return obj.map(({_data}) => {
+      return {id: _data['id'], name: _data['name']};
+    });
+  }
+};
+
+export const covertArrProducts = (obj) => {
+  if (obj === null) {
+    return {};
+  } else {
+    return obj.map(({_data}) => {
+      return {
+        id: _data['id'],
+        name: _data['name'],
+        clas: _data['clas'],
+      };
+    });
+  }
+};
+
+export const covertArrIngredients = (obj) => {
+  //PENDIENTE
+  if (obj === null) {
+    return {};
+  } else {
+    return obj.map(({_data}) => {
+      return {
+        id: _data['id'],
+        name: _data['name'],
+        pk: _data['pk'],
+        gra: _data['gra'],
+        prc: _data['prc'],
+        tp: _data['tp'],
+        hum: _data['hum'],
+        salt: _data['salt'],
+        po4: _data['po4'],
+        asc: _data['asc'],
+        no2: _data['no2'],
+        alm: _data['alm'],
+        cra: _data['cra'],
+      };
+    });
+  }
+};

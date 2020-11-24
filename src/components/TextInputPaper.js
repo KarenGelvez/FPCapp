@@ -8,6 +8,7 @@ export const TextInputPaper = ({
   secure = false,
   type = 'none',
   keyboard = 'default',
+  value = '',
 }) => {
   return (
     <TextInput
@@ -23,6 +24,7 @@ export const TextInputPaper = ({
       onChangeText={onChange}
       textContentType={type}
       keyboardType={keyboard}
+      value={String(value)}
     />
   );
 };

@@ -56,6 +56,7 @@ export const ButtomGoogleSignIn = () => {
               label={'Código'}
               onChange={(value) => setData({...data, code: value})}
               keyboard="number-pad"
+              value={data['code']}
             />
             <TouchableHighlight
               style={{...styles.openButton, backgroundColor: '#838383'}}

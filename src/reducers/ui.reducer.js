@@ -5,6 +5,10 @@ const initialState = {
   methodRegisterGoogle: false,
   loadingSS: true,
   showModalRegister: false,
+  showModalRegProd: false,
+  showModalUpdProd: false,
+  showModalRegIngr: false,
+  showModalUpdIngr: false,
   loading: false,
 };
 
@@ -30,7 +34,26 @@ export const uiReducer = (state = initialState, action) => {
         ...state,
         loading: action.payload,
       };
-
+    case types.uiShowModalRegProd:
+      return {
+        ...state,
+        showModalRegProd: action.payload,
+      };
+    case types.uiShowModalRegIngr:
+      return {
+        ...state,
+        showModalRegIngr: action.payload,
+      };
+    case types.uiShowModalUpdProd:
+      return {
+        ...state,
+        showModalUpdProd: action.payload,
+      };
+    case types.uiShowModalUpdIngr:
+      return {
+        ...state,
+        showModalUpdIngr: action.payload,
+      };
     default:
       return state;
   }

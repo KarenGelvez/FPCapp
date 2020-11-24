@@ -1,6 +1,6 @@
-import {Firestore, Auth} from '../firebase/Firebase';
-import {covertArrStudent, covertArrTeacher} from '../helpers/Obj2Arr';
+import {Firestore} from '../firebase/Firebase';
 import {types} from '../Types';
+import {covertArrStudent, covertArrTeacher} from '../helpers/Obj2Arr';
 import {getUser} from './auth.action';
 import {loading} from './ui.action';
 
