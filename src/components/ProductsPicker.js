@@ -3,13 +3,13 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {useSelector} from 'react-redux';
 
-export const CategoriesPicker = ({onChange, value}) => {
-  const {categoriesList} = useSelector((state) => state.data);
+export const ProductsPicker = ({onChange, value}) => {
+  const {productsList} = useSelector((state) => state.data);
 
   return (
     <>
       <Text style={{width: '70%', alignSelf: 'center', margin: 3}}>
-        Seleccione la categoría:
+        Seleccione el producto cárnico procesado:
       </Text>
       <View style={styles.view}>
         <Picker
@@ -17,14 +17,14 @@ export const CategoriesPicker = ({onChange, value}) => {
           selectedValue={value}
           onValueChange={(value) =>
             onChange((data) => {
-              return {...data, category: value};
+              return {...data, product: value};
             })
           }
-          testID={'SelectCategory'}
+          testID={'SelectProduct'}
           mode={'dropdown'}>
           <Picker.Item label={'Seleccione: '} value={0} key={0} />
-          {categoriesList.map((cat) => (
-            <Picker.Item label={cat.name} value={cat.id} key={cat.id} />
+          {productsList.map((p) => (
+            <Picker.Item label={p.name} value={p.id} key={p.id} />
           ))}
         </Picker>
       </View>

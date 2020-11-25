@@ -42,7 +42,9 @@ export const getCategoriesFirestore = () => {
       .then(({docs}) => {
         const categoriesArr = covertArr(docs);
         dispatch(getCategories(categoriesArr));
-      });
+        dispatch(loading(false));
+      })
+      .catch((e) => dispatch(loading(false)));
   };
 };
 
@@ -53,7 +55,9 @@ export const getClassificationsFirestore = () => {
       .then(({docs}) => {
         const classificationsArr = covertArr(docs);
         dispatch(getClassifications(classificationsArr));
-      });
+        dispatch(loading(false));
+      })
+      .catch((e) => dispatch(loading(false)));
   };
 };
 
@@ -64,9 +68,10 @@ export const getProductsFirestore = () => {
       .get()
       .then(({docs}) => {
         const productsArr = covertArrProducts(docs);
-        dispatch(loading(false));
         dispatch(getProducts(productsArr));
-      });
+        dispatch(loading(false));
+      })
+      .catch((e) => dispatch(loading(false)));
   };
 };
 
@@ -86,7 +91,8 @@ export const registerProduct = (products) => {
             dispatch(loading(false));
             console.log(e);
           });
-      });
+      })
+      .catch((e) => dispatch(loading(false)));
   };
 };
 
@@ -123,7 +129,8 @@ export const getIngredientsFirestore = () => {
         const ingredientsArr = covertArrIngredients(docs);
         dispatch(getIngredients(ingredientsArr));
         dispatch(loading(false));
-      });
+      })
+      .catch((e) => dispatch(loading(false)));
   };
 };
 
@@ -210,6 +217,7 @@ export const getRequirementsFirestore = (category, classification) => {
         console.log(docs);
         //const ingredientsArr = covertArrIngredients(docs);
         //dispatch(getIngredients(ingredientsArr));
-      });
+      })
+      .catch((e) => dispatch(loading(false)));
   };
 };

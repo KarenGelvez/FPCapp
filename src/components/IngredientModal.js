@@ -32,17 +32,17 @@ export const IngredientModal = () => {
   });
   const reset = {
     name: '',
-    pk: 0,
-    gra: 0,
-    prc: 0,
-    tp: 0,
-    hum: 0,
-    salt: 0,
-    po4: 0,
-    asc: 0,
-    no2: 0,
-    alm: 0,
-    cra: 0,
+    pk: '',
+    gra: '',
+    prc: '',
+    tp: '',
+    hum: '',
+    salt: '',
+    po4: '',
+    asc: '',
+    no2: '',
+    alm: '',
+    cra: '',
     id: 'id',
   };
   return (
@@ -56,7 +56,7 @@ export const IngredientModal = () => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={{fontWeight: 'bold', fontSize: 17}}>
-                Agregar nuevo producto
+                Agregar nuevo ingrediente
               </Text>
               <TextInputPaper
                 label={'Nombre del producto'}

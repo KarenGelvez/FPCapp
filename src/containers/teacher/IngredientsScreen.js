@@ -38,7 +38,13 @@ export const IngredientsScreen = () => {
           />
           <Icon name="search-outline" size={30} color="#003366" />
         </View>
-        <Text style={{fontSize: 17, margin: 3, fontWeight: 'bold'}}>
+        <Text
+          style={{
+            fontSize: 17,
+            margin: 3,
+            fontWeight: 'bold',
+            color: '#003366',
+          }}>
           Ingredientes
         </Text>
         {ingredientsList.length > 0 ? (

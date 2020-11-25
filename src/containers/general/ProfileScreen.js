@@ -127,8 +127,9 @@ const styles = StyleSheet.create({
     borderRadius: 80,
   },
   text: {
-    fontSize: 15,
-    margin: 10,
+    fontSize: 17,
+    margin: 5,
+    fontWeight: 'bold',
   },
   wrapperData: {
     width: '100%',
