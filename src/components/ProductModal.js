@@ -36,7 +36,7 @@ export const ProductModal = () => {
             <TextInputPaper
               label={'Nombre del producto'}
               onChange={(value) => setnewProduct({...newProduct, name: value})}
-              value={newProduct['name']}
+              value={String(newProduct['name'])}
             />
             <TouchableHighlight
               style={{

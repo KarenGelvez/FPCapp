@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   FlatList,
   SafeAreaView,
   StyleSheet,
@@ -15,13 +16,18 @@ import {
   getCategoriesFirestore,
   getIngredientsFirestore,
   getProductsFirestore,
+  getRequirementsFirestore,
+  setSelectedData,
+  setSelectedIngredients,
 } from '../../actions/data.action';
-import {loading} from '../../actions/ui.action';
+import {loading, showModalRes} from '../../actions/ui.action';
 import {CategoriesPicker} from '../../components/CategoriesPicker';
 import {IngredientFlatList} from '../../components/IngredientsFlatList';
 import {ItemIngredient} from '../../components/ItemIngredient';
 import {Loading} from '../../components/Loading';
 import {ProductsPicker} from '../../components/ProductsPicker';
+import {ResultsModal} from '../../components/ResultsModal';
+import {TextInputPaper} from '../../components/TextInputPaper';
 
 export const FPCScreen = () => {
   const dispatch = useDispatch();
@@ -31,18 +37,61 @@ export const FPCScreen = () => {
     dispatch(getCategoriesFirestore());
     dispatch(getIngredientsFirestore());
   }, []);
-  const {ingredientsList} = useSelector((state) => state.data);
+  const {ingredientsList, categoriesList, productsList} = useSelector(
+    (state) => state.data,
+  );
+  const {showModalResult: show} = useSelector((state) => state.ui);
   const [search, setsearch] = useState('');
   const [data, setdata] = useState({
     category: '',
     product: '',
+    decrease: '',
+    kgBa: '',
   });
   const [ingredients, setingredients] = useState([]);
+  const handleSubmit = () => {
+    const pro = productsList.filter((p) => {
+      if (p.id == data.product) {
+        return p;
+      }
+    });
+    const cat = categoriesList.filter((c) => {
+      if (c.id == data.category) {
+        return c;
+      }
+    });
+    const selected = [pro[0], cat[0], data.decrease, data.kgBa];
+    dispatch(loading(true));
+    dispatch(setSelectedIngredients(ingredients));
+    dispatch(getRequirementsFirestore(pro[0].clas, cat[0].id));
+    dispatch(setSelectedData(selected));
+    dispatch(showModalRes(true));
+  };
+  const handleValidate = () => {
+    if (data.product == 0 || data.product == '') {
+      handleAlert('Debe seleccionar un producto');
+    } else if (data.category == 0 || data.category == '') {
+      handleAlert('Debe seleccionar una categoría');
+    } else if (data.decrease == 0 || data.decrease == '') {
+      handleAlert('Debe indicar un % de merma');
+    } else if (data.kgBa == 0 || data.kgBa == '') {
+      handleAlert('Debe indicar los kg/bache');
+    } else if (ingredients.length == 0) {
+      handleAlert('Debe seleccionar ingredientes');
+    } else {
+      handleSubmit();
+    }
+  };
+  const handleAlert = (msg) => {
+    Alert.alert('Datos incompletos', msg, [{text: 'Aceptar'}], {
+      cancelable: true,
+    });
+  };
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <Loading />
-
+        {show && <ResultsModal />}
         <Text style={styles.label}>Selección del producto</Text>
         <ProductsPicker onChange={setdata} value={data.product} />
         <CategoriesPicker onChange={setdata} value={data.category} />
@@ -75,6 +124,35 @@ export const FPCScreen = () => {
           <Text style={styles.msg}>No se han registrado ingredientes</Text>
         )}
         <View style={styles.separator}></View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '55%',
+            alignSelf: 'center',
+            justifyContent: 'center',
+          }}>
+          <TextInputPaper
+            label={'%Merma'}
+            onChange={(value) =>
+              setdata((data) => {
+                return {...data, decrease: value};
+              })
+            }
+            keyboard="number-pad"
+            value={data.decrease}
+          />
+          <TextInputPaper
+            label={'Kg/Bache'}
+            onChange={(value) =>
+              setdata((data) => {
+                return {...data, kgBa: value};
+              })
+            }
+            keyboard="number-pad"
+            value={data.kgBa}
+          />
+        </View>
+        <View style={styles.separator}></View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <Text style={styles.label}>Ingredientes seleccionados</Text>
           <TouchableOpacity onPress={() => setingredients([])}>
@@ -87,7 +165,7 @@ export const FPCScreen = () => {
           </TouchableOpacity>
         </View>
         {ingredients.length > 0 ? (
-          <View style={{height: 90, paddingHorizontal: 30}}>
+          <View style={{paddingHorizontal: 30}}>
             <FlatList
               data={ingredients}
               renderItem={({item}) => (
@@ -106,7 +184,7 @@ export const FPCScreen = () => {
         label="Resultado"
         icon="page-next-outline"
         style={styles.fab}
-        onPress={() => {}}
+        onPress={() => handleValidate()}
       />
     </SafeAreaView>
   );

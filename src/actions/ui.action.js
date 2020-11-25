@@ -62,3 +62,10 @@ export const showModalUPI = (state) => {
     payload: state,
   };
 };
+
+export const showModalRes = (state) => {
+  return {
+    type: types.uiShowModalResult,
+    payload: state,
+  };
+};

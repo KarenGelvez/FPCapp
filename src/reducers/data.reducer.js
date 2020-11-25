@@ -7,6 +7,7 @@ const initialState = {
   ingredientsList: [],
   requirements: {},
   selectedIngredients: [],
+  selectedData: [],
 };
 
 export const dataReducer = (state = initialState, action) => {
@@ -40,6 +41,11 @@ export const dataReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedIngredients: action.payload,
+      };
+    case types.selectedData:
+      return {
+        ...state,
+        selectedData: action.payload,
       };
 
     default:

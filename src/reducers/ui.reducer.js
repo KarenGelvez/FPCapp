@@ -9,6 +9,7 @@ const initialState = {
   showModalUpdProd: false,
   showModalRegIngr: false,
   showModalUpdIngr: false,
+  showModalResult: false,
   loading: false,
 };
 
@@ -53,6 +54,11 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         showModalUpdIngr: action.payload,
+      };
+    case types.uiShowModalResult:
+      return {
+        ...state,
+        showModalResult: action.payload,
       };
     default:
       return state;

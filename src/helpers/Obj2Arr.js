@@ -107,3 +107,21 @@ export const covertArrIngredients = (obj) => {
     });
   }
 };
+
+export const covertArrRequirements = (obj) => {
+  if (obj === null) {
+    return {};
+  } else {
+    return obj.map(({_data}) => {
+      return {
+        cat: _data['category'],
+        clas: _data['classification'],
+        fat: _data['fat'],
+        hum: _data['humidity'],
+        nmp: _data['nonmeatprotein'],
+        pro: _data['protein'],
+        sta: _data['starch'],
+      };
+    });
+  }
+};

@@ -24,7 +24,7 @@ export const TextInputPaper = ({
       onChangeText={onChange}
       textContentType={type}
       keyboardType={keyboard}
-      value={String(value)}
+      value={value}
     />
   );
 };

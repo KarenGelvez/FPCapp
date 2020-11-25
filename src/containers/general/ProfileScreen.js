@@ -67,7 +67,7 @@ export const ProfileScreen = () => {
               <Text style={styles.textLabel}>Nombre: </Text>
               <TextInput
                 style={styles.input}
-                value={newData['name']}
+                value={String(newData['name'])}
                 editable={editable}
                 theme={{
                   colors: {
@@ -81,7 +81,7 @@ export const ProfileScreen = () => {
               <Text style={styles.textLabel}>Código: </Text>
               <TextInput
                 style={styles.input}
-                value={newData['code']}
+                value={String(newData['code'])}
                 editable={editable}
                 theme={{
                   colors: {

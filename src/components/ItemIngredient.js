@@ -79,93 +79,93 @@ export const ItemIngredient = ({ingredient}) => {
                 <TextInputPaper
                   label={'Precio por kilo'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, pk: parseFloat(value)})
+                    setupdIngredient({...updIngredient, pk: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['pk']}
+                  value={String(updIngredient['pk'])}
                 />
                 <TextInputPaper
                   label={'% Grasa'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, gra: parseFloat(value)})
+                    setupdIngredient({...updIngredient, gra: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['gra']}
+                  value={String(updIngredient['gra'])}
                 />
                 <TextInputPaper
                   label={'% Proteína cárnica'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, prc: parseFloat(value)})
+                    setupdIngredient({...updIngredient, prc: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['prc']}
+                  value={String(updIngredient['prc'])}
                 />
                 <TextInputPaper
                   label={'% Proteina total'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, tp: parseFloat(value)})
+                    setupdIngredient({...updIngredient, tp: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['tp']}
+                  value={String(updIngredient['tp'])}
                 />
                 <TextInputPaper
                   label={'% Humedad'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, hum: parseFloat(value)})
+                    setupdIngredient({...updIngredient, hum: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['hum']}
+                  value={String(updIngredient['hum'])}
                 />
                 <TextInputPaper
                   label={'% Sal'}
                   onChange={(value) =>
                     setupdIngredient({
                       ...updIngredient,
-                      salt: parseFloat(value),
+                      salt: value,
                     })
                   }
                   keyboard="number-pad"
-                  value={updIngredient['salt']}
+                  value={String(updIngredient['salt'])}
                 />
                 <TextInputPaper
                   label={'% Fosfatos'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, po4: parseFloat(value)})
+                    setupdIngredient({...updIngredient, po4: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['po4']}
+                  value={String(updIngredient['po4'])}
                 />
                 <TextInputPaper
                   label={'% Ascorbato'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, asc: parseFloat(value)})
+                    setupdIngredient({...updIngredient, asc: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['asc']}
+                  value={String(updIngredient['asc'])}
                 />
                 <TextInputPaper
                   label={'% Nitrito'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, no2: parseFloat(value)})
+                    setupdIngredient({...updIngredient, no2: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['no2']}
+                  value={String(updIngredient['no2'])}
                 />
                 <TextInputPaper
                   label={'% Almidón'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, alm: parseFloat(value)})
+                    setupdIngredient({...updIngredient, alm: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['alm']}
+                  value={String(updIngredient['alm'])}
                 />
                 <TextInputPaper
                   label={'% Cap. retención de agua'}
                   onChange={(value) =>
-                    setupdIngredient({...updIngredient, cra: parseFloat(value)})
+                    setupdIngredient({...updIngredient, cra: value})
                   }
                   keyboard="number-pad"
-                  value={updIngredient['cra']}
+                  value={String(updIngredient['cra'])}
                 />
                 <TouchableHighlight
                   style={{

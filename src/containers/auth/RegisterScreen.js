@@ -53,25 +53,25 @@ export const RegisterScreen = ({navigation}) => {
         <TextInputPaper
           label={'Nombre Completo'}
           onChange={(value) => setdata({...data, name: value})}
-          value={data['name']}
+          value={String(data['name'])}
         />
         <TextInputPaper
           label={'Código'}
           onChange={(value) => setdata({...data, code: value})}
           keyboard="number-pad"
-          value={data['code']}
+          value={String(data['code'])}
         />
         <TextInputPaper
           label={'Correo Electrónico'}
           onChange={(value) => setdata({...data, email: value})}
           keyboard="email-address"
-          value={data['email']}
+          value={String(data['email'])}
         />
         <TextInputPaper
           label={'Contraseña'}
           onChange={(value) => setdata({...data, password: value})}
           secure={true}
-          value={data['password']}
+          value={String(data['password'])}
         />
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>

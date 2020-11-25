@@ -12,6 +12,7 @@ export const types = {
   uiShowModalUpdProd: '[UI] ShowModalUpdProd',
   uiShowModalRegIngr: '[UI] ShowModalRegIngr',
   uiShowModalUpdIngr: '[UI] ShowModalUpdIngr',
+  uiShowModalResult: '[UI] ShowModalResult',
 
   getTeachers: '[USER] GetTeachers',
   getStudents: '[USER] GetStudents',
@@ -25,4 +26,5 @@ export const types = {
   getIngredients: '[DATA] GetIngredients',
   getRequirements: '[DATA] GetRequirements',
   selectedIngredients: '[DATA] SelectedIngredients',
+  selectedData: '[DATA] SelectedData',
 };

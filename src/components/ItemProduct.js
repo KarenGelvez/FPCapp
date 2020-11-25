@@ -64,7 +64,7 @@ export const ItemProduct = ({product}) => {
                 onChange={(value) =>
                   setupdProduct({...updProduct, name: value})
                 }
-                value={updProduct['name']}
+                value={String(updProduct['name'])}
               />
               <TouchableHighlight
                 style={{

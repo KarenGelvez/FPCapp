@@ -4,6 +4,7 @@ import {
   covertArr,
   covertArrIngredients,
   covertArrProducts,
+  covertArrRequirements,
 } from '../helpers/Obj2Arr';
 import {loading} from './ui.action';
 
@@ -32,6 +33,27 @@ export const getIngredients = (ingredients) => {
   return {
     type: types.getIngredients,
     payload: ingredients,
+  };
+};
+
+export const getRequirements = (requirements) => {
+  return {
+    type: types.getRequirements,
+    payload: requirements,
+  };
+};
+
+export const setSelectedIngredients = (ingredients) => {
+  return {
+    type: types.selectedIngredients,
+    payload: ingredients,
+  };
+};
+
+export const setSelectedData = (data) => {
+  return {
+    type: types.selectedData,
+    payload: data,
   };
 };
 
@@ -207,17 +229,20 @@ export const deleteIngredient = (id) => {
   };
 };
 
-export const getRequirementsFirestore = (category, classification) => {
+export const getRequirementsFirestore = (clas, cat) => {
   return async (dispatch) => {
     await Firestore.collection('requirements')
-      .where('category', '==', category)
-      .where('classification', '==', classification)
+      .where('classification', '==', clas)
+      .where('category', '==', cat)
       .get()
       .then(({docs}) => {
-        console.log(docs);
-        //const ingredientsArr = covertArrIngredients(docs);
-        //dispatch(getIngredients(ingredientsArr));
+        const requirementssArr = covertArrRequirements(docs);
+        dispatch(getRequirements(requirementssArr));
+        dispatch(loading(false));
       })
-      .catch((e) => dispatch(loading(false)));
+      .catch((e) => {
+        console.log(e);
+        dispatch(loading(false));
+      });
   };
 };

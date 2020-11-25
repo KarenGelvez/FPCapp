@@ -50,12 +50,12 @@ export const LoginScreen = ({navigation}) => {
         <TextInputPaper
           label={'Correo Electrónico'}
           onChange={(value) => setdata({...data, email: value})}
-          value={data['email']}
+          value={String(data['email'])}
         />
         <TextInputPaper
           label={'Contraseña'}
           onChange={(value) => setdata({...data, password: value})}
-          value={data['password']}
+          value={String(data['password'])}
           secure={true}
         />
         <TouchableOpacity style={styles.button} onPress={submitLoginEmail}>

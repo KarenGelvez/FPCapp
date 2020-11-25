@@ -13,7 +13,6 @@ export const IngredientFlatList = ({ingredient, onPress}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [kg, setKg] = useState('');
   const handleAdd = () => {
-    console.log('pres');
     setModalVisible(!modalVisible);
     const ingr = {...ingredient, kg: kg};
     onPress((data) => [...data, ingr]);
@@ -36,7 +35,7 @@ export const IngredientFlatList = ({ingredient, onPress}) => {
                 label={'Cantidad(Kg)'}
                 onChange={(value) => setKg(value)}
                 keyboard="number-pad"
-                value={kg}
+                value={String(kg)}
               />
 
               <TouchableHighlight
