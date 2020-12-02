@@ -23,15 +23,15 @@ export const composition = (ingredients, data) => {
   let no2 = 0;
   ingredients.map((i) => {
     totalCrude += parseFloat(i.kg);
-    prott += parseFloat((parseFloat(i.tp) * parseFloat(i.kg)).toFixed(3));
-    protc += parseFloat((parseFloat(i.prc) * parseFloat(i.kg)).toFixed(3));
-    fat += parseFloat((parseFloat(i.gra) * parseFloat(i.kg)).toFixed(3));
-    hum += parseFloat((parseFloat(i.hum) * parseFloat(i.kg)).toFixed(3));
-    strach += parseFloat((parseFloat(i.alm) * parseFloat(i.kg)).toFixed(3));
-    salt += parseFloat((parseFloat(i.salt) * parseFloat(i.kg)).toFixed(3));
-    po4 += parseFloat((parseFloat(i.po4) * parseFloat(i.kg)).toFixed(3));
-    asc += parseFloat((parseFloat(i.asc) * parseFloat(i.kg)).toFixed(3));
-    no2 += parseFloat((parseFloat(i.no2) * parseFloat(i.kg)).toFixed(3));
+    prott += parseFloat(i.tp) * parseFloat(i.kg);
+    protc += parseFloat(i.prc) * parseFloat(i.kg);
+    fat += parseFloat(i.gra) * parseFloat(i.kg);
+    hum += parseFloat(i.hum) * parseFloat(i.kg);
+    strach += parseFloat(i.alm) * parseFloat(i.kg);
+    salt += parseFloat(i.salt) * parseFloat(i.kg);
+    po4 += parseFloat(i.po4) * parseFloat(i.kg);
+    asc += parseFloat(i.asc) * parseFloat(i.kg);
+    no2 += parseFloat(i.no2) * parseFloat(i.kg);
   });
   const porc = totalCrude * (data[3] / 100);
   const totalFinished = totalCrude - totalCrude * (data[3] / 100);
@@ -55,24 +55,24 @@ export const composition = (ingredients, data) => {
 
   const result = {
     crude: totalCrude,
-    decrease: porc.toFixed(2),
+    decrease: porc,
     total: totalFinished,
-    prot: protTotal.toFixed(3),
-    protc: protcTotal.toFixed(3),
-    protv: protv.toFixed(3),
-    fat: fatTotal.toFixed(3),
-    hum: humTotal.toFixed(3),
-    humfat: humfat.toFixed(3),
-    stra: stratchTotal.toFixed(3),
-    salt: saltTotal.toFixed(3),
-    po4: po4Total.toFixed(3),
-    asc: ascTotal.toFixed(3),
-    no2: no2Total.toFixed(3),
-    no2ppm: no2TotalP,
-    humprot: humprot.toFixed(3),
-    fatprot: fatprot.toFixed(3),
-    salhum: salhum.toFixed(3),
-    balh2o: balh2o.toFixed(3),
+    prot: protTotal.toFixedNoRounding(3),
+    protc: protcTotal.toFixedNoRounding(3),
+    protv: protv.toFixedNoRounding(3),
+    fat: fatTotal.toFixedNoRounding(3),
+    hum: humTotal.toFixedNoRounding(3),
+    humfat: humfat.toFixedNoRounding(3),
+    stra: stratchTotal.toFixedNoRounding(3),
+    salt: saltTotal.toFixedNoRounding(3),
+    po4: po4Total.toFixedNoRounding(3),
+    asc: ascTotal.toFixedNoRounding(3),
+    no2: no2Total.toFixedNoRounding(3),
+    no2ppm: no2TotalP.toFixedNoRounding(2),
+    humprot: humprot.toFixedNoRounding(3),
+    fatprot: fatprot.toFixedNoRounding(3),
+    salhum: salhum.toFixedNoRounding(3),
+    balh2o: balh2o.toFixedNoRounding(3),
   };
   return result;
 };

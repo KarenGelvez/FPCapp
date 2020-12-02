@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>567236900306-3frmnm02nli8o3ob9e1ibceaep369gp7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.567236900306-3frmnm02nli8o3ob9e1ibceaep369gp7</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>567236900306-rlpek92q8cuinne18qau27749kkbs82s.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBK_joc6zEGjA-JXn6aNcyKWXZnkjzFyD8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>567236900306</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.FPCapp</string>
+	<key>PROJECT_ID</key>
+	<string>fpcapp-up</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fpcapp-up.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:567236900306:ios:1e2cf4ee5a81ec3379040b</string>
+	<key>DATABASE_URL</key>
+	<string>https://fpcapp-up.firebaseio.com</string>
+</dict>
+</plist>
