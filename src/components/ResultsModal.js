@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {ClassificationsPicker} from './ClassificationsPicker';
 import {TextInputPaper} from './TextInputPaper';
-import {registerProduct} from '../actions/data.action';
-import {loading, showModalRes, showModalRP} from '../actions/ui.action';
+import {loading, showModalRes} from '../actions/ui.action';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import {pdfFPC} from '../helpers/PDF';
 import {
+  Alert,
   Modal,
+  PermissionsAndroid,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,19 +22,61 @@ export const ResultsModal = () => {
   const {selectedIngredients, selectedData, requirements} = useSelector(
     (state) => state.data,
   );
+  const {userData} = useSelector((state) => state.auth);
   const [data, setdata] = useState({
     g: '',
     obs: '',
   });
   const result = composition(selectedIngredients, selectedData);
-  //dispatch(showModalRes(true))
   const {showModalResult: show} = useSelector((state) => state.ui);
-  const [newProduct, setnewProduct] = useState({
-    name: '',
-    clas: '',
-    id: 'id',
-  });
-  const reset = {name: '', clas: '', id: 'id'};
+
+  const title = selectedData[0].name + selectedData[1].name + userData['code'];
+  const [filePath, setFilePath] = useState('');
+  const isPermitted = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Se necesitan permisos',
+            message: 'La aplicación necesita permisos para almacenar el PDF',
+          },
+        );
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+      } catch (err) {
+        alert('Ha ocurrido un error', err);
+        return false;
+      }
+    } else {
+      return true;
+    }
+  };
+  const createPDF = async () => {
+    const pdf = pdfFPC(
+      userData,
+      selectedIngredients,
+      requirements[0],
+      selectedData,
+      data,
+      result,
+    );
+    if (await isPermitted()) {
+      let options = {
+        //Content to print
+        html: pdf,
+        //File Name
+        fileName: title,
+        //File directory
+        directory: 'FPCapp',
+      };
+      let file = await RNHTMLtoPDF.convert(options);
+      setFilePath(file.filePath);
+      Alert.alert(
+        'PDF descargado',
+        'Puede encontrar el PDF en la carpeta FPCapp',
+      );
+    }
+  };
   return (
     <>
       <Modal
@@ -61,15 +106,17 @@ export const ResultsModal = () => {
                 <Text>Fosfatos: {result.po4}%</Text>
                 <Text>Eritorbatos: {result.asc}%</Text>
                 <Text>Nitrito: {result.no2}%</Text>
-                <Text>Nitrito (ppm):{result.no2ppm}% </Text>
+                <Text>Nitrito (ppm): {result.no2ppm} </Text>
                 <Text style={styles.label}>ÍNDICES</Text>
                 <Text>Humedad/Proteína: {result.humprot}%</Text>
-                <Text>Grasa/Proteína:{result.fatprot}% </Text>
+                <Text>Grasa/Proteína: {result.fatprot}% </Text>
                 <Text>Sal/Humedad: {result.salhum}%</Text>
                 <Text>Balance de Agua: {result.balh2o}%</Text>
-                <Text>TOTAL CRUDO: {result.crude}%</Text>
-                <Text>% DE MERMA: {result.decrease}%</Text>
-                <Text>TOTAL TERMINADO: {result.total}%</Text>
+                <Text>TOTAL CRUDO: {result.crude}kg</Text>
+                <Text>
+                  {selectedData[2]}% DE MERMA: {result.decrease}kg
+                </Text>
+                <Text>TOTAL TERMINADO: {result.total}kg</Text>
               </View>
 
               <Text style={styles.text}>
@@ -78,7 +125,7 @@ export const ResultsModal = () => {
               </Text>
               <TextInputPaper
                 label={'Porción(g)'}
-                onChange={(value) => setdata({...newProduct, g: value})}
+                onChange={(value) => setdata({...data, g: value})}
                 value={String(data['g'])}
                 keyboard="number-pad"
               />
@@ -94,11 +141,7 @@ export const ResultsModal = () => {
                   margin: 5,
                 }}
                 onPress={() => {
-                  console.log('EXPORTAR PDF');
-                  //dispatch(showModalRes(false));
-                  /* dispatch(loading(true));
-                dispatch(registerProduct(newProduct));
-                setnewProduct(reset); */
+                  createPDF();
                 }}>
                 <Text style={styles.textStyle}>Exportar PDF</Text>
               </TouchableHighlight>

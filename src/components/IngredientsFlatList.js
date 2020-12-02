@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   Modal,
   StyleSheet,
   Text,
@@ -7,15 +8,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {TextInputPaper} from './TextInputPaper';
+import {TextInputPaperUp} from './TextInputPaperUp';
 
 export const IngredientFlatList = ({ingredient, onPress}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [kg, setKg] = useState('');
   const handleAdd = () => {
-    setModalVisible(!modalVisible);
-    const ingr = {...ingredient, kg: kg};
-    onPress((data) => [...data, ingr]);
+    if (kg != '' && !isNaN(kg)) {
+      setModalVisible(!modalVisible);
+      const ingr = {...ingredient, kg: kg};
+      onPress((data) => [...data, ingr]);
+    } else {
+      Alert.alert(
+        'Datos incompletos',
+        'Debe indicar una cantidad',
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
+    }
   };
   return (
     <>
@@ -31,7 +43,7 @@ export const IngredientFlatList = ({ingredient, onPress}) => {
                 Indique la cantidad a usar
               </Text>
 
-              <TextInputPaper
+              <TextInputPaperUp
                 label={'Cantidad(Kg)'}
                 onChange={(value) => setKg(value)}
                 keyboard="number-pad"

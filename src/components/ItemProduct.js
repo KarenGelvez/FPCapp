@@ -12,7 +12,7 @@ import {useDispatch} from 'react-redux';
 import {deleteProduct, updateProduct} from '../actions/data.action';
 import {loading} from '../actions/ui.action';
 import {ClassificationsPicker} from './ClassificationsPicker';
-import {TextInputPaper} from './TextInputPaper';
+import {TextInputPaperUp} from './TextInputPaperUp';
 
 export const ItemProduct = ({product}) => {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ export const ItemProduct = ({product}) => {
                 value={updProduct['clas']}
               />
 
-              <TextInputPaper
+              <TextInputPaperUp
                 label={'Nombre del producto'}
                 onChange={(value) =>
                   setupdProduct({...updProduct, name: value})

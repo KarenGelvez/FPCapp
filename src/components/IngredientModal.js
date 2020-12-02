@@ -63,7 +63,6 @@ export const IngredientModal = () => {
                 onChange={(value) =>
                   setnewIngredient({...newIngredient, name: value})
                 }
-                value={String(newIngredient['name'])}
               />
               <TextInputPaper
                 label={'Precio por kilo'}
@@ -71,7 +70,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, pk: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['pk'])}
               />
               <TextInputPaper
                 label={'% Grasa'}
@@ -79,7 +77,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, gra: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['gra'])}
               />
               <TextInputPaper
                 label={'% Proteína cárnica'}
@@ -87,7 +84,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, prc: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['prc'])}
               />
               <TextInputPaper
                 label={'% Proteina total'}
@@ -95,7 +91,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, tp: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['tp'])}
               />
               <TextInputPaper
                 label={'% Humedad'}
@@ -103,7 +98,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, hum: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['hum'])}
               />
               <TextInputPaper
                 label={'% Sal'}
@@ -111,7 +105,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, salt: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['salt'])}
               />
               <TextInputPaper
                 label={'% Fosfatos'}
@@ -119,7 +112,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, po4: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['po4'])}
               />
               <TextInputPaper
                 label={'% Ascorbato'}
@@ -127,7 +119,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, asc: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['asc'])}
               />
               <TextInputPaper
                 label={'% Nitrito'}
@@ -135,7 +126,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, no2: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['no2'])}
               />
               <TextInputPaper
                 label={'% Almidón'}
@@ -143,7 +133,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, alm: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['alm'])}
               />
               <TextInputPaper
                 label={'% Cap. retención de agua'}
@@ -151,7 +140,6 @@ export const IngredientModal = () => {
                   setnewIngredient({...newIngredient, cra: value})
                 }
                 keyboard="number-pad"
-                value={String(newIngredient['cra'])}
               />
               <TouchableHighlight
                 style={{

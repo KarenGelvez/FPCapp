@@ -3,6 +3,7 @@ import {
   Alert,
   FlatList,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -23,7 +24,6 @@ import {
 import {loading, showModalRes} from '../../actions/ui.action';
 import {CategoriesPicker} from '../../components/CategoriesPicker';
 import {IngredientFlatList} from '../../components/IngredientsFlatList';
-import {ItemIngredient} from '../../components/ItemIngredient';
 import {Loading} from '../../components/Loading';
 import {ProductsPicker} from '../../components/ProductsPicker';
 import {ResultsModal} from '../../components/ResultsModal';
@@ -78,8 +78,12 @@ export const FPCScreen = () => {
       handleAlert('Debe indicar los kg/bache');
     } else if (ingredients.length == 0) {
       handleAlert('Debe seleccionar ingredientes');
-    } else {
+    } else if (!isNaN(data.decrease) && !isNaN(data.kgBa)) {
       handleSubmit();
+    } else {
+      handleAlert(
+        'Debe ingresar valores numéricos, sí son decimales, usar punto (.)',
+      );
     }
   };
   const handleAlert = (msg) => {
@@ -89,97 +93,102 @@ export const FPCScreen = () => {
   };
   return (
     <SafeAreaView>
-      <View style={styles.container}>
-        <Loading />
-        {show && <ResultsModal />}
-        <Text style={styles.label}>Selección del producto</Text>
-        <ProductsPicker onChange={setdata} value={data.product} />
-        <CategoriesPicker onChange={setdata} value={data.category} />
-        <View style={styles.separator}></View>
-        <Text style={styles.label}>Selección de ingredientes</Text>
-        <View style={styles.view}>
-          <TextInput
-            style={styles.text}
-            onChangeText={(val) => setsearch(val.toLowerCase())}
-            placeholder={'Buscar un ingrediente'}
-          />
-          <Icon name="search-outline" size={30} color="#003366" />
-        </View>
-        {ingredientsList.length > 0 ? (
-          <View style={{height: 90, paddingHorizontal: 30}}>
-            <FlatList
-              data={ingredientsList}
-              renderItem={({item}) =>
-                item.name.toLowerCase().includes(search) && (
-                  <IngredientFlatList
-                    ingredient={item}
-                    onPress={setingredients}
-                  />
-                )
+      <ScrollView
+        style={{height: '100%', backgroundColor: '#fff'}}
+        scrollEnabled={true}>
+        <View style={styles.container}>
+          <Loading />
+          {show && <ResultsModal />}
+          <Text style={styles.label}>Selección del producto</Text>
+          <ProductsPicker onChange={setdata} value={data.product} />
+          <CategoriesPicker onChange={setdata} value={data.category} />
+          <View style={styles.separator}></View>
+          <Text style={styles.label}>Selección de ingredientes</Text>
+          <View style={styles.view}>
+            <TextInput
+              style={styles.text}
+              onChangeText={(val) => setsearch(val.toLowerCase())}
+              placeholder={'Buscar un ingrediente'}
+            />
+            <Icon name="search-outline" size={30} color="#003366" />
+          </View>
+          {ingredientsList.length > 0 ? (
+            <View style={{height: 90, paddingHorizontal: 30}}>
+              <FlatList
+                data={ingredientsList}
+                scrollEnabled={false}
+                renderItem={({item}) =>
+                  item.name.toLowerCase().includes(search) && (
+                    <IngredientFlatList
+                      ingredient={item}
+                      onPress={setingredients}
+                    />
+                  )
+                }
+                keyExtractor={(item) => String(item.id)}
+              />
+            </View>
+          ) : (
+            <Text style={styles.msg}>No se han registrado ingredientes</Text>
+          )}
+          <View style={styles.separator}></View>
+          <View
+            style={{
+              flexDirection: 'row',
+              width: '55%',
+              alignSelf: 'center',
+              justifyContent: 'center',
+            }}>
+            <TextInputPaper
+              label={'%Merma'}
+              onChange={(value) =>
+                setdata((data) => {
+                  return {...data, decrease: value};
+                })
               }
-              keyExtractor={(item) => String(item.id)}
+              keyboard="number-pad"
+              value={data.decrease}
+            />
+            <TextInputPaper
+              label={'Kg/Bache'}
+              onChange={(value) =>
+                setdata((data) => {
+                  return {...data, kgBa: value};
+                })
+              }
+              keyboard="number-pad"
+              value={data.kgBa}
             />
           </View>
-        ) : (
-          <Text style={styles.msg}>No se han registrado ingredientes</Text>
-        )}
-        <View style={styles.separator}></View>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: '55%',
-            alignSelf: 'center',
-            justifyContent: 'center',
-          }}>
-          <TextInputPaper
-            label={'%Merma'}
-            onChange={(value) =>
-              setdata((data) => {
-                return {...data, decrease: value};
-              })
-            }
-            keyboard="number-pad"
-            value={data.decrease}
-          />
-          <TextInputPaper
-            label={'Kg/Bache'}
-            onChange={(value) =>
-              setdata((data) => {
-                return {...data, kgBa: value};
-              })
-            }
-            keyboard="number-pad"
-            value={data.kgBa}
-          />
-        </View>
-        <View style={styles.separator}></View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={styles.label}>Ingredientes seleccionados</Text>
-          <TouchableOpacity onPress={() => setingredients([])}>
-            <Icon
-              name="refresh"
-              size={30}
-              color="#003366"
-              style={{marginRight: 25}}
-            />
-          </TouchableOpacity>
-        </View>
-        {ingredients.length > 0 ? (
-          <View style={{paddingHorizontal: 30}}>
-            <FlatList
-              data={ingredients}
-              renderItem={({item}) => (
-                <Text style={{fontSize: 16}}>
-                  {item.name}: {item.kg}kg{' '}
-                </Text>
-              )}
-              keyExtractor={(item) => String(item.id)}
-            />
+          <View style={styles.separator}></View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={styles.label}>Ingredientes seleccionados</Text>
+            <TouchableOpacity onPress={() => setingredients([])}>
+              <Icon
+                name="refresh"
+                size={30}
+                color="#003366"
+                style={{marginRight: 25}}
+              />
+            </TouchableOpacity>
           </View>
-        ) : (
-          <Text style={styles.msg}>No se han seleccionado ingredientes</Text>
-        )}
-      </View>
+          {ingredients.length > 0 ? (
+            <View style={{paddingHorizontal: 30}}>
+              <FlatList
+                data={ingredients}
+                renderItem={({item}) => (
+                  <Text style={{fontSize: 16}}>
+                    {item.name}: {item.kg}kg{' '}
+                  </Text>
+                )}
+                keyExtractor={(item) => String(item.id)}
+              />
+            </View>
+          ) : (
+            <Text style={styles.msg}>No se han seleccionado ingredientes</Text>
+          )}
+        </View>
+      </ScrollView>
       <FAB
         label="Resultado"
         icon="page-next-outline"

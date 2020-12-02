@@ -3,6 +3,7 @@ import {types} from '../Types';
 import {covertArrStudent, covertArrTeacher} from '../helpers/Obj2Arr';
 import {getUser} from './auth.action';
 import {loading} from './ui.action';
+import {Alert} from 'react-native';
 
 export const getTeacher = (teachers) => {
   return {
@@ -40,6 +41,10 @@ export const getTeachersFirestore = () => {
         const teachersArr = covertArrTeacher(docs);
         dispatch(getTeacher(teachersArr));
         dispatch(loading(false));
+      })
+      .catch(() => {
+        dispatch(loading(false));
+        Alert.alert('Información', 'Ha ocurrido un problema');
       });
   };
 };
@@ -54,6 +59,10 @@ export const getStudentsFirestore = (uid) => {
         dispatch(getStudents(student));
         dispatch(getStudentsVerified(studentVerified));
         dispatch(loading(false));
+      })
+      .catch(() => {
+        dispatch(loading(false));
+        Alert.alert('Información', 'Ha ocurrido un problema');
       });
   };
 };
@@ -64,6 +73,10 @@ export const keyTeachers = () => {
       .get()
       .then(({docs}) => {
         docs.map(({_data}) => dispatch(getKeyTeachers(_data['idTeachers'])));
+      })
+      .catch(() => {
+        dispatch(loading(false));
+        Alert.alert('Información', 'Ha ocurrido un problema');
       });
   };
 };
@@ -76,7 +89,11 @@ export const updateUser = (uid, collection, newdata, method) => {
         name: newdata['name'],
         code: newdata['code'],
       })
-      .then(() => dispatch(getUser(uid, collection, method)));
+      .then(() => dispatch(getUser(uid, collection, method)))
+      .catch(() => {
+        dispatch(loading(false));
+        Alert.alert('Información', 'Ha ocurrido un problema');
+      });
   };
 };
 
@@ -89,6 +106,10 @@ export const verifiedUser = (uid, uidT) => {
       })
       .then(() => {
         dispatch(getStudentsFirestore(uidT));
+      })
+      .catch(() => {
+        dispatch(loading(false));
+        Alert.alert('Información', 'Ha ocurrido un problema');
       });
   };
 };

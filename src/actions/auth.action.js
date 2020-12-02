@@ -4,6 +4,7 @@ import {types} from '../Types';
 import {removeUser as RU, setUserData as SU} from '../helpers/AsyncStorage';
 import {covertDataUser} from '../helpers/Obj2Arr';
 import {loading, showModalRegister} from './ui.action';
+import {Alert} from 'react-native';
 
 export const userData = (data) => {
   return {
@@ -50,13 +51,16 @@ export const userAuthEmail = (data) => {
       .catch((error) => {
         dispatch(loading(false));
         if (error.code === 'auth/email-already-in-use') {
-          console.log('El Email ya esta en esu!');
+          Alert.alert('Información', 'El correo electrónico ya está en uso');
         }
         if (error.code === 'auth/invalid-email') {
-          console.log('el email es invalido');
+          Alert.alert('Información', 'El correo electrónico en inválido');
         }
         if (error.code === 'auth/weak-password') {
-          console.log('contrasenia debil');
+          Alert.alert(
+            'Información',
+            'Contraseña débil, debe tener mínimo 6 caracteres',
+          );
         }
         console.error(error);
       });
@@ -76,8 +80,7 @@ export const userRegister = (data) => {
           photo: data['photo'],
         })
         .then((res) => {
-          console.log(res);
-          console.log('Docente Registrado');
+          Alert.alert('Registro Exitoso', 'Ya puede iniciar sesión');
         });
     } else {
       //StudentRegister
@@ -92,8 +95,10 @@ export const userRegister = (data) => {
           photo: data['photo'],
         })
         .then((res) => {
-          console.log(res);
-          console.log('Estudiante Registrado');
+          Alert.alert(
+            'Registro Exitoso',
+            'Para iniciar sesión, debe esperar ser aceptado por el docente',
+          );
         })
         .catch((e) => console.log('ERROR REGISTER S: ' + e));
     }
@@ -101,7 +106,7 @@ export const userRegister = (data) => {
     dispatch(logoutEmail());
   };
 };
-//setUserData(data);
+
 export const loginGoogleTeacher = () => {
   return async (dispatch) => {
     dispatch(loading(true));
@@ -175,17 +180,18 @@ export const loginEmailTeacher = (data) => {
       .catch((error) => {
         dispatch(loading(false));
         if (error.code === 'auth/user-not-found') {
-          console.log(
-            'no hay ningún usuario correspondiente al correo electrónico',
+          Alert.alert(
+            'Información',
+            'No hay ningún usuario correspondiente al correo electrónico',
           );
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          Alert.alert('Información', 'El correo electrónico es inválido');
         }
 
         if (error.code === 'auth/wrong-password') {
-          console.log('la contraseña no es válida para el correo electrónico');
+          Alert.alert('Información', 'Contraseña incorrecta');
         }
         console.error(error);
       });
@@ -202,20 +208,24 @@ export const loginEmailStudent = (data) => {
       })
       .catch((error) => {
         dispatch(loading(false));
+        if (error.code === 'auth/network-request-failed') {
+          Alert.alert('Información', 'Ha ocurrido un problema en la red');
+        }
+        console.log('ERROR PROMISE');
         if (error.code === 'auth/user-not-found') {
-          console.log(
-            'no hay ningún usuario correspondiente al correo electrónico',
+          Alert.alert(
+            'Información',
+            'No hay ningún usuario correspondiente al correo electrónico',
           );
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          Alert.alert('Información', 'El correo electrónico es inválido');
         }
 
         if (error.code === 'auth/wrong-password') {
-          console.log('la contraseña no es válida para el correo electrónico');
+          Alert.alert('Información', 'Contraseña incorrecta');
         }
-        console.error(error);
       });
   };
 };

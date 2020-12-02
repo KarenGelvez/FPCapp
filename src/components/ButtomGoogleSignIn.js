@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Modal, View, Text, TouchableHighlight, StyleSheet} from 'react-native';
+import {
+  Modal,
+  View,
+  Text,
+  TouchableHighlight,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import {GoogleSigninButton} from '@react-native-community/google-signin';
 import {
   loginGoogleTeacher,
@@ -17,8 +24,8 @@ export const ButtomGoogleSignIn = () => {
   );
   const {userToRegister} = useSelector((state) => state.auth);
   const [data, setData] = useState({
-    code: null,
-    uidTeacher: null,
+    code: '',
+    uidTeacher: '',
   });
   const dispatch = useDispatch();
   const submitLoginGoogle = () => {
@@ -29,13 +36,37 @@ export const ButtomGoogleSignIn = () => {
     }
   };
   const handleNewRegister = () => {
-    const newUser = {
-      ...userToRegister,
-      code: data['code'],
-      uidTeacher: data['uidTeacher'],
-      userTeacher: userTeacher,
-    };
-    dispatch(userRegister(newUser));
+    if (userTeacher) {
+      if (data['code'] == '') {
+        Alert.alert('Información', 'Debe proporcionar un código');
+      } else {
+        const newUser = {
+          ...userToRegister,
+          code: data['code'],
+          uidTeacher: data['uidTeacher'],
+          userTeacher: userTeacher,
+        };
+        dispatch(userRegister(newUser));
+        dispatch(showModalRegister(!show));
+      }
+    } else {
+      if (
+        data['code'] == '' ||
+        data['uidTeacher'] == '' ||
+        data['uidTeacher'] == '0'
+      ) {
+        Alert.alert('Información', 'Debe completar los campos');
+      } else {
+        const newUser = {
+          ...userToRegister,
+          code: data['code'],
+          uidTeacher: data['uidTeacher'],
+          userTeacher: userTeacher,
+        };
+        dispatch(userRegister(newUser));
+        dispatch(showModalRegister(!show));
+      }
+    }
   };
   return (
     <>
@@ -56,12 +87,10 @@ export const ButtomGoogleSignIn = () => {
               label={'Código'}
               onChange={(value) => setData({...data, code: value})}
               keyboard="number-pad"
-              value={String(data['code'])}
             />
             <TouchableHighlight
               style={{...styles.openButton, backgroundColor: '#838383'}}
               onPress={() => {
-                dispatch(showModalRegister(!show));
                 handleNewRegister();
               }}>
               <Text style={styles.textStyle}>Confirmar</Text>

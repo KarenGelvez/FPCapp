@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {
+  Alert,
   Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {userAuthEmail} from '../../actions/auth.action';
@@ -31,8 +31,59 @@ export const RegisterScreen = ({navigation}) => {
   });
   const {userTeacher} = useSelector((state) => state.ui);
   const handleSubmit = () => {
-    dispatch(loading(true));
-    dispatch(userAuthEmail({...data, userTeacher}));
+    console.log(data.uidTeacher);
+    if (
+      userTeacher == false &&
+      (data.uidTeacher == null || data.uidTeacher == '0')
+    ) {
+      Alert.alert(
+        'Datos incompletos',
+        `Debe seleccionar un docente`,
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
+    } else if (data.name == null || data.name == '') {
+      Alert.alert(
+        'Datos incompletos',
+        'Debe proporcionar un nombre',
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
+    } else if (data.code == null || data.code == '') {
+      Alert.alert(
+        'Datos incompletos',
+        'Debe proporcionar un código',
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
+    } else if (data.email == null || data.email == '') {
+      Alert.alert(
+        'Datos incompletos',
+        'Debe proporcionar un correo electrónico',
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
+    } else if (data.password == null || data.password == '') {
+      Alert.alert(
+        'Datos incompletos',
+        'Debe proporcionar una contraseña',
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
+    } else {
+      dispatch(loading(true));
+      dispatch(userAuthEmail({...data, userTeacher}));
+    }
   };
   return (
     <SafeAreaView>
@@ -53,25 +104,21 @@ export const RegisterScreen = ({navigation}) => {
         <TextInputPaper
           label={'Nombre Completo'}
           onChange={(value) => setdata({...data, name: value})}
-          value={String(data['name'])}
         />
         <TextInputPaper
           label={'Código'}
           onChange={(value) => setdata({...data, code: value})}
           keyboard="number-pad"
-          value={String(data['code'])}
         />
         <TextInputPaper
           label={'Correo Electrónico'}
           onChange={(value) => setdata({...data, email: value})}
           keyboard="email-address"
-          value={String(data['email'])}
         />
         <TextInputPaper
           label={'Contraseña'}
           onChange={(value) => setdata({...data, password: value})}
           secure={true}
-          value={String(data['password'])}
         />
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>

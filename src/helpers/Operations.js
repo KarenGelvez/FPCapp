@@ -1,4 +1,16 @@
 export const composition = (ingredients, data) => {
+  Number.prototype.toFixedNoRounding = function (n) {
+    const reg = new RegExp('^-?\\d+(?:\\.\\d{0,' + n + '})?', 'g');
+    const a = this.toString().match(reg)[0];
+    const dot = a.indexOf('.');
+    if (dot === -1) {
+      // integer, insert decimal dot and pad up zeros
+      return a + '.' + '0'.repeat(n);
+    }
+    const b = n - (a.length - dot) + 1;
+    return b > 0 ? a + '0'.repeat(b) : a;
+  };
+
   let totalCrude = 0;
   let prott = 0;
   let protc = 0;
@@ -11,41 +23,30 @@ export const composition = (ingredients, data) => {
   let no2 = 0;
   ingredients.map((i) => {
     totalCrude += parseFloat(i.kg);
-    prott += parseFloat(i.tp) * parseFloat(i.kg);
-    protc += parseFloat(i.prc) * parseFloat(i.kg);
-    fat += parseFloat(i.gra) * parseFloat(i.kg);
-    hum += parseFloat(i.hum) * parseFloat(i.kg);
-    strach += parseFloat(i.alm) * parseFloat(i.kg);
-    salt += parseFloat(i.salt) * parseFloat(i.kg);
-    po4 += parseFloat(i.po4) * parseFloat(i.kg);
-    asc += parseFloat(i.asc) * parseFloat(i.kg);
-    no2 += parseFloat(i.no2) * parseFloat(i.kg);
+    prott += parseFloat((parseFloat(i.tp) * parseFloat(i.kg)).toFixed(3));
+    protc += parseFloat((parseFloat(i.prc) * parseFloat(i.kg)).toFixed(3));
+    fat += parseFloat((parseFloat(i.gra) * parseFloat(i.kg)).toFixed(3));
+    hum += parseFloat((parseFloat(i.hum) * parseFloat(i.kg)).toFixed(3));
+    strach += parseFloat((parseFloat(i.alm) * parseFloat(i.kg)).toFixed(3));
+    salt += parseFloat((parseFloat(i.salt) * parseFloat(i.kg)).toFixed(3));
+    po4 += parseFloat((parseFloat(i.po4) * parseFloat(i.kg)).toFixed(3));
+    asc += parseFloat((parseFloat(i.asc) * parseFloat(i.kg)).toFixed(3));
+    no2 += parseFloat((parseFloat(i.no2) * parseFloat(i.kg)).toFixed(3));
   });
   const porc = totalCrude * (data[3] / 100);
-  const totalFinished =
-    totalCrude.toFixed(3) - totalCrude.toFixed(3) * (data[3] / 100);
-  let protTotal =
-    parseFloat(prott.toFixed(3)) / parseFloat(totalFinished.toFixed(3));
-  let protcTotal =
-    parseFloat(protc.toFixed(3)) / parseFloat(totalFinished.toFixed(3));
-  let protv =
-    parseFloat(protTotal.toFixed(3)) - parseFloat(protcTotal.toFixed(3));
-  let fatTotal =
-    parseFloat(fat.toFixed(3)) / parseFloat(totalFinished.toFixed(3));
-  let humTotal =
-    parseFloat(hum.toFixed(3)) / parseFloat(totalFinished.toFixed(3));
-  let humfat =
-    parseFloat(humTotal.toFixed(3)) + parseFloat(fatTotal.toFixed(3));
-  let stratchTotal =
-    parseFloat(strach.toFixed(3)) / parseFloat(totalFinished.toFixed(3));
-  let saltTotal =
-    parseFloat(salt.toFixed(3)) / parseFloat(totalFinished.toFixed(3));
-  let po4Total =
-    parseFloat(po4.toFixed(3)) / parseFloat(totalFinished.toFixed(3));
-  let ascTotal = parseFloat(asc.toFixed(3)) / parseFloat(totalCrude.toFixed(3));
-  let no2Total = parseFloat(no2.toFixed(3)) / parseFloat(totalCrude.toFixed(3));
-  let no2TotalP =
-    (parseFloat(no2.toFixed(3)) / parseFloat(totalCrude.toFixed(3))) * 10000;
+  const totalFinished = totalCrude - totalCrude * (data[3] / 100);
+  let protTotal = prott / totalFinished;
+  let protcTotal = protc / totalFinished;
+  let protv = protTotal - protcTotal;
+  let fatTotal = fat / totalFinished;
+  let humTotal = hum / totalFinished;
+  let humfat = humTotal + fatTotal;
+  let stratchTotal = strach / totalFinished;
+  let saltTotal = salt / totalFinished;
+  let po4Total = po4 / totalFinished;
+  let ascTotal = asc / totalCrude;
+  let no2Total = no2 / totalCrude;
+  let no2TotalP = no2Total * 10000;
 
   let humprot = humTotal / protTotal;
   let fatprot = fatTotal / protTotal;
@@ -54,7 +55,7 @@ export const composition = (ingredients, data) => {
 
   const result = {
     crude: totalCrude,
-    decrease: porc,
+    decrease: porc.toFixed(2),
     total: totalFinished,
     prot: protTotal.toFixed(3),
     protc: protcTotal.toFixed(3),
@@ -67,7 +68,7 @@ export const composition = (ingredients, data) => {
     po4: po4Total.toFixed(3),
     asc: ascTotal.toFixed(3),
     no2: no2Total.toFixed(3),
-    no2ppm: no2TotalP.toFixed(3),
+    no2ppm: no2TotalP,
     humprot: humprot.toFixed(3),
     fatprot: fatprot.toFixed(3),
     salhum: salhum.toFixed(3),

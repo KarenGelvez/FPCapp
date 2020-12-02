@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginEmailTeacher, loginEmailStudent} from '../../actions/auth.action';
@@ -28,11 +29,31 @@ export const LoginScreen = ({navigation}) => {
     password: null,
   });
   const submitLoginEmail = () => {
-    dispatch(loading(true));
-    if (userTeacher) {
-      dispatch(loginEmailTeacher(data));
+    if (data.email == '' || data.email == null) {
+      Alert.alert(
+        'Datos incompletos',
+        'Debe proporcionar un correo electrónico',
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
+    } else if (data.password == '' || data.password == null) {
+      Alert.alert(
+        'Datos incompletos',
+        'Debe proporcionar una contraseña',
+        [{text: 'Aceptar'}],
+        {
+          cancelable: true,
+        },
+      );
     } else {
-      dispatch(loginEmailStudent(data));
+      dispatch(loading(true));
+      if (userTeacher) {
+        dispatch(loginEmailTeacher(data));
+      } else {
+        dispatch(loginEmailStudent(data));
+      }
     }
   };
   return (
@@ -50,12 +71,10 @@ export const LoginScreen = ({navigation}) => {
         <TextInputPaper
           label={'Correo Electrónico'}
           onChange={(value) => setdata({...data, email: value})}
-          value={String(data['email'])}
         />
         <TextInputPaper
           label={'Contraseña'}
           onChange={(value) => setdata({...data, password: value})}
-          value={String(data['password'])}
           secure={true}
         />
         <TouchableOpacity style={styles.button} onPress={submitLoginEmail}>

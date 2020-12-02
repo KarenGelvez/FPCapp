@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  TextInput,
-  FlatList,
-  Text,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View, TextInput, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {loading, showModalRI} from '../../actions/ui.action';
@@ -48,15 +41,13 @@ export const IngredientsScreen = () => {
           Ingredientes
         </Text>
         {ingredientsList.length > 0 ? (
-          <FlatList
-            data={ingredientsList}
-            renderItem={({item}) =>
-              item.name.toLowerCase().includes(search) && (
-                <ItemIngredient ingredient={item} />
-              )
-            }
-            keyExtractor={(item) => String(item.id)}
-          />
+          <>
+            {ingredientsList.map((item) => {
+              if (item.name.toLowerCase().includes(search)) {
+                return <ItemIngredient ingredient={item} key={item.id} />;
+              }
+            })}
+          </>
         ) : (
           <Text>Aún no hay ingredientes registrados</Text>
         )}

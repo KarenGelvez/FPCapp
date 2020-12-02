@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  FlatList,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useDispatch, useSelector} from 'react-redux';
 import {loading, showModalRP} from '../../actions/ui.action';
@@ -53,15 +46,13 @@ export const ProductsScreen = () => {
           Productos Cárnicos Procesados
         </Text>
         {productsList.length > 0 ? (
-          <FlatList
-            data={productsList}
-            renderItem={({item}) =>
-              item.name.toLowerCase().includes(search) && (
-                <ItemProduct product={item} />
-              )
-            }
-            keyExtractor={(item) => String(item.id)}
-          />
+          <>
+            {productsList.map((item) => {
+              if (item.name.toLowerCase().includes(search)) {
+                return <ItemProduct product={item} key={item.id} />;
+              }
+            })}
+          </>
         ) : (
           <Text>Aún no hay productos registrados</Text>
         )}

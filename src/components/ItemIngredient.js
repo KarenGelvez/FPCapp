@@ -17,7 +17,7 @@ import {
   updateProduct,
 } from '../actions/data.action';
 import {loading} from '../actions/ui.action';
-import {TextInputPaper} from './TextInputPaper';
+import {TextInputPaperUp} from './TextInputPaperUp';
 
 export const ItemIngredient = ({ingredient}) => {
   const dispatch = useDispatch();
@@ -69,14 +69,14 @@ export const ItemIngredient = ({ingredient}) => {
                 <Text style={{fontWeight: 'bold', fontSize: 17}}>
                   Actualizar ingrediente
                 </Text>
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'Nombre del producto'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, name: value})
                   }
                   value={updIngredient['name']}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'Precio por kilo'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, pk: value})
@@ -84,7 +84,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['pk'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Grasa'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, gra: value})
@@ -92,7 +92,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['gra'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Proteína cárnica'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, prc: value})
@@ -100,7 +100,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['prc'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Proteina total'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, tp: value})
@@ -108,7 +108,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['tp'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Humedad'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, hum: value})
@@ -116,7 +116,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['hum'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Sal'}
                   onChange={(value) =>
                     setupdIngredient({
@@ -127,7 +127,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['salt'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Fosfatos'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, po4: value})
@@ -135,7 +135,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['po4'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Ascorbato'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, asc: value})
@@ -143,7 +143,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['asc'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Nitrito'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, no2: value})
@@ -151,7 +151,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['no2'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Almidón'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, alm: value})
@@ -159,7 +159,7 @@ export const ItemIngredient = ({ingredient}) => {
                   keyboard="number-pad"
                   value={String(updIngredient['alm'])}
                 />
-                <TextInputPaper
+                <TextInputPaperUp
                   label={'% Cap. retención de agua'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, cra: value})
