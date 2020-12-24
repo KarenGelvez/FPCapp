@@ -163,7 +163,8 @@ export const FPCScreen = () => {
           <View style={styles.separator}></View>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={styles.label}>Ingredientes seleccionados</Text>
-            <TouchableOpacity onPress={() => setingredients([])}>
+            <TouchableOpacity
+              onPress={() => setingredients((ing) => ing.pop())}>
               <Icon
                 name="refresh"
                 size={30}

@@ -46,6 +46,7 @@ export const SwitchUser = () => {
             <TextInputPaper
               label={'Clave docentes'}
               onChange={(value) => setnewKey(value)}
+              secure={true}
             />
             <TouchableHighlight
               style={{...styles.openButton, backgroundColor: '#838383'}}

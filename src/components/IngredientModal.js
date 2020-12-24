@@ -59,7 +59,7 @@ export const IngredientModal = () => {
                 Agregar nuevo ingrediente
               </Text>
               <TextInputPaper
-                label={'Nombre del producto'}
+                label={'Nombre del ingrediente'}
                 onChange={(value) =>
                   setnewIngredient({...newIngredient, name: value})
                 }

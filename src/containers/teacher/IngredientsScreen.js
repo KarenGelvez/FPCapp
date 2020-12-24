@@ -27,7 +27,7 @@ export const IngredientsScreen = () => {
           <TextInput
             style={styles.text}
             onChangeText={(val) => setsearch(val.toLowerCase())}
-            placeholder={'Buscar un producto'}
+            placeholder={'Buscar un ingrediente'}
           />
           <Icon name="search-outline" size={30} color="#003366" />
         </View>

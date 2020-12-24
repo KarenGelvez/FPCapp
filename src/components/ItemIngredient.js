@@ -70,7 +70,7 @@ export const ItemIngredient = ({ingredient}) => {
                   Actualizar ingrediente
                 </Text>
                 <TextInputPaperUp
-                  label={'Nombre del producto'}
+                  label={'Nombre del ingrediente'}
                   onChange={(value) =>
                     setupdIngredient({...updIngredient, name: value})
                   }
